@@ -2,6 +2,8 @@ service: randy-pitcher-workspace--file-loader
 
 frameworkVersion: '3'
 
+plugins:
+  - serverless-better-credentials
 
 provider:
   name: aws
@@ -11,10 +13,5 @@ functions:
   rateHandler:
     handler: handler.run
     events:
-      # Invoke Lambda function every minute
-      - schedule: rate(1 minute)
-  cronHandler:
-    handler: handler.run
-    events:
-      # Invoke Lambda function every 2nd minute from Mon-Fri
-      - schedule: cron(0/2 * ? * MON-FRI *)
+      # Invoke Lambda function every hour
+      - schedule: rate(60 minute)
