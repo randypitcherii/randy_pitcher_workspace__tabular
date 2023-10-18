@@ -6,8 +6,8 @@ import uuid
 import os
 
 api_key = os.environ["OPENWEATHER_API_KEY"]
-s3_bucket_name = "randy-pitcher-workspace--aws"
-s3_folder_location = 'tabular/staged/rpw__aws/default/weather_raw'
+s3_bucket_name = "randy-pitcher-workspace--aws--us-west-2"
+s3_folder_location = 'tabular/staged/enterprise_data_warehouse/batch_raw/serverless_weather_raw'
 
 
 def get_weather(city, api_key):

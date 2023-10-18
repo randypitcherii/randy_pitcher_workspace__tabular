@@ -6,10 +6,11 @@ frameworkVersion: '3'
 
 provider:
   name: aws
+  region: us-west-2
   runtime: python3.11
 
   environment:
-    OPENWEATHER_API_KEY: ${param:openweather_api_key}
+    OPENWEATHER_API_KEY: ${ssm(us-west-2):/randy_pitcher_workspace/serverless/openweather_api_key}
 
   iam:
     role:
@@ -17,14 +18,14 @@ provider:
         - Effect: "Allow"
           Action:
             - "s3:PutObject"
-          Resource: "arn:aws:s3:::randy-pitcher-workspace--aws/*"
+          Resource: "arn:aws:s3:::randy-pitcher-workspace--aws--us-west-2/*"
 
 functions:
   getWeatherData:
     handler: handler.lambda_handler
     events:
       # Invoke Lambda function every 10 minute
-      - schedule: rate(10 minutes)
+      - schedule: rate(2 minutes)
 
 plugins:
   - serverless-python-requirements
