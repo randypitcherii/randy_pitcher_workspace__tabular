@@ -1,0 +1,94 @@
+{
+  "generators": [
+    {
+      "topic": "reactions",
+
+      "key": "kafka_connect.reactions",
+      "value": {
+        "generated_at": {
+          "_gen": "now"
+        },
+
+        "event_minutes_since_midnight": {
+            "_gen": "normalDistribution",
+            "mean": 1140, 
+            "sd": 45
+        },
+        
+        "event_day": {
+          "_gen": "oneOf",
+          "choices": [
+            {
+              "_gen": "dateBetween",
+              "between": ["2023-06-01", "2023-10-15"]
+            }
+          ]
+        },
+
+        "reaction": {
+          "_gen": "oneOf",
+          "choices": [
+            "👍",
+            "❤️",
+            "🎉",
+            "🙌",
+            "👏",
+            "🔥",
+            "🌈",
+            "🎶",
+            "🥳",
+            "👑",
+            "💯",
+            "💪",
+            "🙏",
+            "🚀",
+            "🌟",
+            "💕",
+            "💥",
+            "🎊",
+            "✨",
+            "🔔",
+            "🍾",
+            "🎁",
+            "🌹",
+            "🎈",
+            "🎯",
+            "🏆",
+            "⚡️",
+            "🌺",
+            "💎",
+            "🎀",
+            "🍫"
+          ]
+        },
+
+        "user_id": {
+          "_gen": "oneOf",
+          "choices": [
+            {
+                "_gen": "string",
+                "expr": "#{Internet.uuid}"
+            },
+            {
+                "_gen": "lookup",
+                "topic": "reactions",
+                "path": [
+                  "value", "user_id"
+                ]
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "connections": {
+    "kafka": {
+      "kind": "kafka",
+      "producerConfigs": {
+        "bootstrap.servers": "kafka:9092",
+        "key.serializer": "io.shadowtraffic.kafka.serdes.JsonSerializer",
+        "value.serializer": "io.shadowtraffic.kafka.serdes.JsonSerializer"
+      }
+    }
+  }
+}

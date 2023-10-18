@@ -1,0 +1,4 @@
+*.zip
+iceberg-kafka-connect-runtime-*/
+license.env
+secrets.txt
