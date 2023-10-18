@@ -33,7 +33,7 @@ def get_weather(city, api_key):
 def lambda_handler(event, context):
     s3 = boto3.client("s3")
 
-    cities = ["Indianapolis", "New York", "London", "Paris", "Tokyo", "Sydney"]
+    cities = ["Indianapolis", "Nashville", "New York", "London", "Paris", "Tokyo", "Sydney"]
 
     for city in cities:
         weather_data = get_weather(city, api_key)
