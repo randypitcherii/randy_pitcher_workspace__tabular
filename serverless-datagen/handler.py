@@ -1,6 +1,8 @@
 import boto3
 import json
 import requests
+import gzip
+import io
 from datetime import datetime
 import uuid
 import os
@@ -33,13 +35,17 @@ def get_weather(city, api_key):
 def lambda_handler(event, context):
     s3 = boto3.client("s3")
 
-    cities = ["Indianapolis", "Nashville", "New York", "London", "Paris", "Tokyo", "Sydney"]
+    cities = ["Indianapolis", "Nashville", "San Jose", "New York", "London", "Paris", "Tokyo", "Sydney"]
 
     for city in cities:
         weather_data = get_weather(city, api_key)
 
         if weather_data:
-            file_name = f"{city}--{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}--{uuid.uuid4()}.json"
+            file_name = f"{city}--{datetime.utcnow().strftime('%Y%m%d%H%M%S%f')}--{uuid.uuid4()}.json.gz"  # .gz for gzip
+            with io.BytesIO() as bio:
+                with gzip.GzipFile(fileobj=bio, mode='w') as gzf:
+                    gzf.write(json.dumps(weather_data).encode('utf-8'))  # Writing to gzip file
+                compressed_data = bio.getvalue()   # Getting compressed data
             s3.put_object(
-                Bucket=s3_bucket_name, Key=f"{s3_folder_location}/{file_name}", Body=json.dumps(weather_data)
+                Bucket=s3_bucket_name, Key=f"{s3_folder_location}/{file_name}", Body=compressed_data
             )
