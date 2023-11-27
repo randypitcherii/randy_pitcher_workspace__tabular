@@ -2,27 +2,37 @@
   "generators": [
     {
       "topic": "reactions",
-
       "key": "kafka_connect.reactions",
       "value": {
         "generated_at": {
           "_gen": "now"
         },
-
+        
         "event_minutes_since_midnight": {
-            "_gen": "normalDistribution",
-            "mean": 1140, 
-            "sd": 45
+          "_gen": "normalDistribution",
+          "mean": 1140,
+          "sd": 45
         },
         
         "event_day": {
-          "_gen": "oneOf",
-          "choices": [
-            {
-              "_gen": "dateBetween",
-              "between": ["2023-06-01", "2023-10-15"]
-            }
-          ]
+          "_gen": "formatDateTime",
+          "ms": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              {
+                "_gen": "subtract",
+                "args": [
+                  {
+                    "_gen": "now"
+                  },
+                  345600000
+                ]
+              },
+              {
+                "_gen": "now"
+              }
+            ]
+          }
         },
 
         "reaction": {
@@ -61,20 +71,24 @@
             "🍫"
           ]
         },
-
+        "user_email": {
+          "_gen": "string",
+          "expr": "#{Internet.emailAddress}"
+        },
         "user_id": {
           "_gen": "oneOf",
           "choices": [
             {
-                "_gen": "string",
-                "expr": "#{Internet.uuid}"
+              "_gen": "string",
+              "expr": "#{Internet.uuid}"
             },
             {
-                "_gen": "lookup",
-                "topic": "reactions",
-                "path": [
-                  "value", "user_id"
-                ]
+              "_gen": "lookup",
+              "topic": "reactions",
+              "path": [
+                "value",
+                "user_id"
+              ]
             }
           ]
         }
