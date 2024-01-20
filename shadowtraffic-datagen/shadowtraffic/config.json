@@ -1,7 +1,7 @@
 {
   "generators": [
     {
-      "topic": "reactions",
+      "topic": "shadow",
 
       "key": "kafka_connect.reactions",
       "value": {
