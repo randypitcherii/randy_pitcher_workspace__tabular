@@ -1,9 +1,23 @@
 all: build
 
-# Get the current Google Cloud project ID
+# 👇 make sure you're cool with the values here. Update if you need to
+LOCATION = us-east4
+REPOSITORY = tabular-serverless-dataproc-artifacts
+
+# you shouldn't have to update these values
 PROJECT_ID := $(shell gcloud config get-value project)
 IMAGE_NAME = tabular-dataproc-serverless
-FULL_IMAGE_NAME = gcr.io/$(PROJECT_ID)/$(IMAGE_NAME)
+FULL_IMAGE_NAME = $(LOCATION)-docker.pkg.dev/$(PROJECT_ID)/$(REPOSITORY)/$(IMAGE_NAME)
+
+print:
+	@echo 'Current image ID: gcr.io/$(PROJECT_ID)/$(IMAGE_NAME)'
+
+auth:
+	gcloud auth login
+	gcloud auth configure-docker $(LOCATION)-docker.pkg.dev --quiet
+
+create_repo:
+	-gcloud artifacts repositories create $(REPOSITORY) --repository-format=docker --location=$(LOCATION) --description="Docker repository for Tabular assets used with serverless dataproc"
 
 # Build the Docker image
 build:
@@ -14,12 +28,8 @@ build:
 tag:
 	docker tag $(IMAGE_NAME) $(FULL_IMAGE_NAME)
 
-# enable the gcp container registry
-enable-container-registry: 
-	gcloud services enable containerregistry.googleapis.com
-
 # Push the Docker image to GCR
-push: build tag
+push: build tag auth create_repo
 	docker push $(FULL_IMAGE_NAME)
 
 lab:
