@@ -1,14 +1,11 @@
 # Debian 11 is recommended.
-FROM debian:11-slim
-
-# Suppress interactive prompts
-ENV DEBIAN_FRONTEND=noninteractive
+FROM python:3.11
 
 # (Required) Install utilities required by Spark scripts.
-RUN apt update && apt install -y procps tini libjemalloc2
+RUN apt update && apt install -y procps tini
 
-# Enable jemalloc2 as default memory allocator
-ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+# install JupyterLab
+RUN pip install jupyterlab
 
 # Add Apache Iceberg dependencies
 ENV SPARK_EXTRA_JARS_DIR=/opt/spark/jars/
@@ -27,4 +24,6 @@ ADD "${ICEBERG_GCP_BUNDLE_URL}" "${SPARK_EXTRA_JARS_DIR}"
 # The GID and UID must be 1099. Home directory is required.
 RUN groupadd -g 1099 spark
 RUN useradd -u 1099 -g 1099 -d /home/spark -m spark
+
+# switch to spark user!
 USER spark

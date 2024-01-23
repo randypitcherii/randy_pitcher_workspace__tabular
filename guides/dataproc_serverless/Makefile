@@ -10,7 +10,7 @@ IMAGE_NAME = tabular-dataproc-serverless
 FULL_IMAGE_NAME = $(LOCATION)-docker.pkg.dev/$(PROJECT_ID)/$(REPOSITORY)/$(IMAGE_NAME)
 
 print:
-	@echo 'Current image ID: gcr.io/$(PROJECT_ID)/$(IMAGE_NAME)'
+	@echo '\nCurrent image ID: $(FULL_IMAGE_NAME)'
 
 auth:
 	gcloud auth login
@@ -31,6 +31,7 @@ tag:
 # Push the Docker image to GCR
 push: build tag auth create_repo
 	docker push $(FULL_IMAGE_NAME)
+	@echo '\nCurrent image ID: $(FULL_IMAGE_NAME)'
 
 lab:
 	pipenv install
