@@ -9,21 +9,6 @@
           "_gen": "now"
         },
 
-        "event_minutes_since_midnight": {
-            "_gen": "normalDistribution",
-            "mean": 1140, 
-            "sd": 45
-        },
-        
-        "event_day": {
-          "_gen": "oneOf",
-          "choices": [
-            {
-              "_gen": "dateBetween",
-              "between": ["2023-06-01", "2023-10-15"]
-            }
-          ]
-        },
 
         "reaction": {
           "_gen": "oneOf",
