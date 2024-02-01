@@ -5,12 +5,11 @@ version: "3"
 
 services:
   kafka:
+    restart: always
     image: docker.io/bitnami/kafka:3.5
     container_name: kafka
     ports:
       - "9092:9092"
-    volumes:
-      - "kafka_data:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_CFG_NODE_ID=0
@@ -25,17 +24,17 @@ services:
       # Set message.max.bytes
       - KAFKA_MESSAGE_MAX_BYTES=1000000
 
-  kafka_connect:
-      image: docker.io/bitnami/kafka:3.5
-      container_name: kafka_connect
-      volumes:
-        - './tabular-sink/:/bitnami'
-      depends_on:
-        - kafka
-      command: connect-standalone.sh /bitnami/connect-standalone.properties /bitnami/tabular-sink.properties
-
+  tabular_connector:
+    restart: always
+    container_name: tabular_connector
+    build:
+      context: ./tabular_connector
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka
 
   shadowtraffic:
+    restart: always
     image: shadowtraffic/shadowtraffic:0.1.11
     container_name: shadowtraffic
     env_file:
@@ -45,7 +44,3 @@ services:
     command: ["--config", "/home/config.json"]
     depends_on: 
       - kafka
-
-volumes:
-  kafka_data:
-    driver: local

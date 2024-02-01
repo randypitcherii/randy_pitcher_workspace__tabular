@@ -9,7 +9,6 @@
           "_gen": "now"
         },
 
-
         "reaction": {
           "_gen": "oneOf",
           "choices": [

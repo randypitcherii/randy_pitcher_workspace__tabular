@@ -5,6 +5,11 @@ run:
 	docker compose pull
 	docker compose up -d
 
+restart_tabular_connector:
+	@echo 'Restarting tabular_connector...'
+	docker compose down tabular_connector
+	docker compose up --force-recreate --build --remove-orphans tabular_connector
+
 logs:
 	docker compose logs -f
 
