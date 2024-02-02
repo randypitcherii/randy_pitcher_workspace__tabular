@@ -18,7 +18,7 @@
     "iceberg.control.commit.interval-ms": "20000",
 
     "iceberg.catalog.warehouse": "enterprise_data_warehouse",
-    "topics": "reactions,events",
+    "topics.regex": "events",
     "iceberg.tables.route-field": "target_table"
   }
 }
