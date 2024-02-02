@@ -15,6 +15,8 @@
     "database.password": "postgres",
     "database.dbname": "tabular",
     "database.server.name": "postgres",
-    "topic.prefix": "dbz_tabular_postgres"
+    "topic.prefix": "dbz_tabular_postgres",
+    "transforms": "DebeziumTransform",
+    "transforms.copyId.type": "io.tabular.iceberg.connect.transforms.DebeziumTransform"
   }
 }
