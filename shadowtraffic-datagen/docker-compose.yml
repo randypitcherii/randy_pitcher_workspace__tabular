@@ -1,9 +1,27 @@
-# Copyright VMware, Inc.
-# SPDX-License-Identifier: APACHE-2.0
-
 version: "3"
 
 services:
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=randy_pitcher_workspace
+    command: ['postgres', '-c', 'wal_level=logical']
+
+  debezium:
+    container_name: debezium
+    build:
+      context: ./debezium
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - kafka
+
   kafka:
     restart: always
     image: docker.io/bitnami/kafka:3.5
@@ -33,14 +51,26 @@ services:
     depends_on:
       - kafka
 
-  shadowtraffic:
+  shadowtraffic_kafka:
     restart: always
     image: shadowtraffic/shadowtraffic:0.1.11
-    container_name: shadowtraffic
+    container_name: shadowtraffic_kafka
     env_file:
       - ./shadowtraffic/license.env
     volumes:
-      - ./shadowtraffic/config.json:/home/config.json
+      - ./shadowtraffic/kafka-config.json:/home/config.json
     command: ["--config", "/home/config.json"]
     depends_on: 
       - kafka
+
+  shadowtraffic_pg:
+    restart: always
+    image: shadowtraffic/shadowtraffic:0.1.11
+    container_name: shadowtraffic_pg
+    env_file:
+      - ./shadowtraffic/license.env
+    volumes:
+      - ./shadowtraffic/pg-config.json:/home/config.json
+    command: ["--config", "/home/config.json"]
+    depends_on: 
+      - postgres

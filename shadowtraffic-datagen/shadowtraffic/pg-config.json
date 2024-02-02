@@ -1,0 +1,83 @@
+{
+  "generators": [
+    {
+      "table": "pg_reactions",
+      "row": {
+        "generated_at": {
+          "_gen": "now"
+        },
+
+        "reaction": {
+          "_gen": "oneOf",
+          "choices": [
+            "👍",
+            "❤️",
+            "🎉",
+            "🙌",
+            "👏",
+            "🔥",
+            "🌈",
+            "🎶",
+            "🥳",
+            "👑",
+            "💯",
+            "💪",
+            "🙏",
+            "🚀",
+            "🌟",
+            "💕",
+            "💥",
+            "🎊",
+            "✨",
+            "🔔",
+            "🍾",
+            "🎁",
+            "🌹",
+            "🎈",
+            "🎯",
+            "🏆",
+            "⚡️",
+            "🌺",
+            "💎",
+            "🎀",
+            "🍫"
+          ]
+        },
+
+        "user_id": {
+          "_gen": "oneOf",
+          "choices": [
+            {
+                "_gen": "string",
+                "expr": "#{Internet.uuid}"
+            },
+            {
+                "_gen": "lookup",
+                "table": "pg_reactions",
+                "path": [
+                  "value", "user_id"
+                ]
+            }
+          ]
+        }
+      },
+      "localConfigs": {
+        "throttle": {
+          "ms": 200
+        }
+      }
+    }
+  ],
+  "connections": {
+    "pg": {
+      "kind": "postgres",
+      "connectionConfigs": {
+        "host": "postgres",
+        "port": 5432,
+        "username" : "postgres",
+        "password" : "postgres",
+        "db": "randy_pitcher_workspace"
+      }
+    }
+  }
+}

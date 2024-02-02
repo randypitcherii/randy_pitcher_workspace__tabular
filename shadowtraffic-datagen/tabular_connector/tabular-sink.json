@@ -3,16 +3,22 @@
   "config": {
     "connector.class": "io.tabular.iceberg.connect.IcebergSinkConnector",
     "tasks.max": "1",
-    "topics": "reactions",
-    "iceberg.catalog.credential": "${file:/tabular_connector/secrets.txt:tabular.key}",
+
+    "iceberg.catalog.http-client.type": "apache",
     "iceberg.catalog.type": "rest",
     "iceberg.catalog.uri": "https://api.tabular.io/ws",
-    "iceberg.catalog.warehouse": "enterprise_data_warehouse",
+    "iceberg.catalog.credential": "${file:/tabular_connector/secrets.txt:tabular.key}",
+
     "iceberg.tables.auto-create-enabled": "true",
     "iceberg.tables.evolve-schema-enabled": "true",
-    "iceberg.tables": "kafka_connect_raw.reactions",
-    "iceberg.catalog.http-client.type": "apache",
-    "iceberg.control.commit.timeout-ms": "120000",
-    "iceberg.control.commit.interval-ms": "45000"
+    "iceberg.tables.schema-force-optional": "true",
+    "iceberg.tables.schema-case-insensitive": "true",
+    "iceberg.tables.dynamic-enabled": "true",
+
+    "iceberg.control.commit.interval-ms": "20000",
+
+    "iceberg.catalog.warehouse": "enterprise_data_warehouse",
+    "topics": "reactions,events",
+    "iceberg.tables.route-field": "target_table"
   }
 }
