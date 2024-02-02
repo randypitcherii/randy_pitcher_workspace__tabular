@@ -9,8 +9,6 @@ ENV BOOTSTRAP_SERVERS="kafka:9092" \
     VALUE_CONVERTER="org.apache.kafka.connect.json.JsonConverter" \
     CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE="false" \
     CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE="false" \
-    CONNECT_PRODUCER_INTERCEPTOR_CLASSES="io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor" \
-    CONNECT_CONSUMER_INTERCEPTOR_CLASSES="io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor" \
     CONNECT_PLUGIN_PATH="/kafka/connect"
 
 USER root

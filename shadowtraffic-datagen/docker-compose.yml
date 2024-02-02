@@ -2,16 +2,12 @@ version: "3"
 
 services:
   postgres:
-    image: postgres:latest
+    container_name: postgres
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
     ports:
       - "5432:5432"
-    volumes:
-      - ./postgres:/docker-entrypoint-initdb.d
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=randy_pitcher_workspace
-    command: ['postgres', '-c', 'wal_level=logical']
 
   debezium:
     container_name: debezium
