@@ -1,5 +1,5 @@
 {
-  "name": "tabular-sink",
+  "name": "tabular-sink-events",
   "config": {
     "connector.class": "io.tabular.iceberg.connect.IcebergSinkConnector",
     "tasks.max": "1",
@@ -16,9 +16,10 @@
     "iceberg.tables.dynamic-enabled": "true",
 
     "iceberg.control.commit.interval-ms": "20000",
+    "iceberg.tables.default-commit-branch": "main",
 
     "iceberg.catalog.warehouse": "enterprise_data_warehouse",
-    "topics.regex": "events",
+    "topics": "events,reactions",
     "iceberg.tables.route-field": "target_table"
   }
 }

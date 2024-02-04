@@ -1,0 +1,29 @@
+{
+  "name": "tabular-sink-debezium",
+  "config": {
+    "connector.class": "io.tabular.iceberg.connect.IcebergSinkConnector",
+    "tasks.max": "1",
+
+    "iceberg.catalog.http-client.type": "apache",
+    "iceberg.catalog.type": "rest",
+    "iceberg.catalog.uri": "https://api.tabular.io/ws",
+    "iceberg.catalog.credential": "${file:/tabular_connector/secrets.txt:tabular.key}",
+
+    "iceberg.tables.auto-create-enabled": "true",
+    "iceberg.tables.evolve-schema-enabled": "true",
+    "iceberg.tables.schema-force-optional": "true",
+    "iceberg.tables.schema-case-insensitive": "true",
+    "iceberg.tables.dynamic-enabled": "true",
+
+    "iceberg.control.commit.interval-ms": "20000",
+    "iceberg.tables.default-commit-branch": "main",
+
+    "iceberg.catalog.warehouse": "enterprise_data_warehouse",
+    "topics": "dbz_tabular_postgres.public.pg_reactions",
+    "iceberg.tables.route-field": "_cdc.target",
+    
+    "transforms": "DebeziumTransform",
+    "transforms.DebeziumTransform.type": "io.tabular.iceberg.connect.transforms.DebeziumTransform",
+    "transforms.DebeziumTransform.cdc.target.pattern": "kafka_connect_raw.dbz_{table}"
+  }
+}

@@ -64,11 +64,6 @@
             }
           ]
         }
-      },
-      "localConfigs": {
-        "throttle": {
-          "ms": 1000
-        }
       }
     },
     {
