@@ -19,7 +19,7 @@
     "iceberg.tables.default-commit-branch": "main",
 
     "iceberg.catalog.warehouse": "enterprise_data_warehouse",
-    "topics": "dbz_tabular_postgres.public.pg_reactions",
+    "topics.regex": "dbz_tabular_postgres.*",
     "iceberg.tables.route-field": "_cdc.target",
     
     "transforms": "DebeziumTransform",
