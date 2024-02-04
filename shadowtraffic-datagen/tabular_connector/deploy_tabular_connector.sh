@@ -6,7 +6,7 @@ submit_connector() {
     echo "Waiting for Kafka Connect to start..."
     sleep 5
   done
-  # curl -X POST -H "Content-Type: application/json" --data @/tabular_connector/tabular-sink-events.json http://localhost:8083/connectors
+  curl -X POST -H "Content-Type: application/json" --data @/tabular_connector/tabular-sink-events.json http://localhost:8083/connectors
   curl -X POST -H "Content-Type: application/json" --data @/tabular_connector/tabular-sink-debezium.json http://localhost:8083/connectors
 
 
