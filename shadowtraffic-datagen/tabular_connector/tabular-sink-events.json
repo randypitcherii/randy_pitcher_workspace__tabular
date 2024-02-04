@@ -1,0 +1,25 @@
+{
+  "name": "tabular-sink-events",
+  "config": {
+    "connector.class": "io.tabular.iceberg.connect.IcebergSinkConnector",
+    "tasks.max": "1",
+
+    "iceberg.catalog.http-client.type": "apache",
+    "iceberg.catalog.type": "rest",
+    "iceberg.catalog.uri": "https://api.tabular.io/ws",
+    "iceberg.catalog.credential": "${file:/tabular_connector/secrets.txt:tabular.key}",
+
+    "iceberg.tables.auto-create-enabled": "true",
+    "iceberg.tables.evolve-schema-enabled": "true",
+    "iceberg.tables.schema-force-optional": "true",
+    "iceberg.tables.schema-case-insensitive": "true",
+    "iceberg.tables.dynamic-enabled": "true",
+
+    "iceberg.control.commit.interval-ms": "20000",
+    "iceberg.tables.default-commit-branch": "main",
+
+    "iceberg.catalog.warehouse": "enterprise_data_warehouse",
+    "topics": "events,reactions",
+    "iceberg.tables.route-field": "target_table"
+  }
+}

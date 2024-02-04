@@ -1,0 +1,25 @@
+{
+  "before": null,
+  "after": {
+    "generated_at": 1707083453541,
+    "reaction": "\uD83C\uDF7E",
+    "user_id": "1d3ba84b-0f06-4fe8-b898-4770367301d6"
+  },
+  "source": {
+    "version": "2.5.1.Final",
+    "connector": "postgresql",
+    "name": "dbz_tabular_postgres",
+    "ts_ms": 1707083453547,
+    "snapshot": "false",
+    "db": "tabular",
+    "sequence": "[\"26614936\",\"26614992\"]",
+    "schema": "public",
+    "table": "pg_reactions",
+    "txId": 764,
+    "lsn": 26614992,
+    "xmin": null
+  },
+  "op": "c",
+  "ts_ms": 1707083453897,
+  "transaction": null
+}

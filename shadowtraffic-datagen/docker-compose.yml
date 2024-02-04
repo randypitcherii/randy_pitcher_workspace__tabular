@@ -1,16 +1,38 @@
-# Copyright VMware, Inc.
-# SPDX-License-Identifier: APACHE-2.0
-
 version: "3"
 
 services:
+  postgres:
+    container_name: postgres
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
+
+  debezium:
+    image: quay.io/debezium/connect:2.5
+    container_name: debezium
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - GROUP_ID=5432
+      - CONFIG_STORAGE_TOPIC=dbz_connect_configs
+      - OFFSET_STORAGE_TOPIC=dbz_connect_offsets
+      - STATUS_STORAGE_TOPIC=dbz_connect_statuses
+      - KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+      - CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE=false
+      - CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE=false
+      - CONNECT_PLUGIN_PATH=/kafka/connect
+    depends_on:
+      - postgres
+      - kafka
+
   kafka:
+    restart: always
     image: docker.io/bitnami/kafka:3.5
     container_name: kafka
     ports:
       - "9092:9092"
-    volumes:
-      - "kafka_data:/bitnami"
     environment:
       # KRaft settings
       - KAFKA_CFG_NODE_ID=0
@@ -25,27 +47,35 @@ services:
       # Set message.max.bytes
       - KAFKA_MESSAGE_MAX_BYTES=1000000
 
-  kafka_connect:
-      image: docker.io/bitnami/kafka:3.5
-      container_name: kafka_connect
-      volumes:
-        - './tabular-sink/:/bitnami'
-      depends_on:
-        - kafka
-      command: connect-standalone.sh /bitnami/connect-standalone.properties /bitnami/tabular-sink.properties
+  tabular_connector:
+    restart: always
+    container_name: tabular_connector
+    build:
+      context: ./tabular_connector
+      dockerfile: Dockerfile
+    depends_on:
+      - kafka
 
-
-  shadowtraffic:
+  shadowtraffic_kafka:
+    restart: always
     image: shadowtraffic/shadowtraffic:0.1.11
-    container_name: shadowtraffic
+    container_name: shadowtraffic_kafka
     env_file:
       - ./shadowtraffic/license.env
     volumes:
-      - ./shadowtraffic/config.json:/home/config.json
+      - ./shadowtraffic/kafka-config.json:/home/config.json
     command: ["--config", "/home/config.json"]
     depends_on: 
       - kafka
 
-volumes:
-  kafka_data:
-    driver: local
+  shadowtraffic_pg:
+    restart: always
+    image: shadowtraffic/shadowtraffic:0.1.11
+    container_name: shadowtraffic_pg
+    env_file:
+      - ./shadowtraffic/license.env
+    volumes:
+      - ./shadowtraffic/pg-config.json:/home/config.json
+    command: ["--config", "/home/config.json"]
+    depends_on: 
+      - postgres

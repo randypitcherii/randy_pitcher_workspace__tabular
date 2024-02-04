@@ -5,10 +5,11 @@
 
       "key": "kafka_connect.reactions",
       "value": {
+        "target_table": "kafka_connect_raw.reactions",
+        
         "generated_at": {
           "_gen": "now"
         },
-
 
         "reaction": {
           "_gen": "oneOf",
@@ -44,6 +45,42 @@
             "💎",
             "🎀",
             "🍫"
+          ]
+        },
+
+        "user_id": {
+          "_gen": "oneOf",
+          "choices": [
+            {
+                "_gen": "string",
+                "expr": "#{Internet.uuid}"
+            },
+            {
+                "_gen": "lookup",
+                "topic": "reactions",
+                "path": [
+                  "value", "user_id"
+                ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "topic": "events",
+
+      "key": "kafka_connect.events",
+      "value": {
+        "event_time": {
+          "_gen": "now"
+        },
+
+        "target_table": {
+          "_gen": "oneOf",
+          "choices": [
+            "kafka_connect_raw.signup_events",
+            "kafka_connect_raw.auth_events",
+            "kafka_connect_raw.error_events"
           ]
         },
 
