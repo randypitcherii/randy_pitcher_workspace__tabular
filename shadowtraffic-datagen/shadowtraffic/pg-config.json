@@ -2,7 +2,23 @@
   "generators": [
     {
       "table": "pg_reactions",
+
+      
+      "fork": {
+        "key": { "_gen": "uuid" },
+        "stagger": { "ms": 250 }
+      },
+
+      "varsOnce": {
+        "emailAddress": {
+          "_gen": "string",
+          "expr": "#{Internet.emailAddress}"
+        }
+      },
+
       "row": {
+        "event_id": { "_gen": "var", "var": "forkKey" },
+
         "generated_at": {
           "_gen": "now"
         },
@@ -44,30 +60,61 @@
           ]
         },
 
-        "user_id": {
-          "_gen": "oneOf",
-          "choices": [
-            {
-                "_gen": "string",
-                "expr": "#{Internet.uuid}"
-            },
-            {
-                "_gen": "lookup",
-                "table": "pg_reactions",
-                "path": [
-                  "value", "user_id"
-                ]
-            }
-          ]
+        "user_email": { "_gen": "var", "var": "emailAddress" },
+
+        "user_ip": {
+          "_gen": "string",
+          "expr": "#{Internet.ipV4Address}"
         }
       },
+
+      "stateMachine": {
+        "_gen": "stateMachine",
+        "initial": "insert",
+        "transitions": {
+          "insert": {
+            "_gen": "weightedOneOf",
+            "choices": [
+              { "weight": 4, "value": "update" },
+              { "weight": 1, "value": "delete" }
+            ]
+          },
+          "update": {
+            "_gen": "weightedOneOf",
+            "choices": [
+              { "weight": 3, "value": "update" },
+              { "weight": 1, "value": "delete" }
+            ]
+          }
+        },
+
+        "states": {
+            "insert": {
+                "op": "insert"
+            },
+            "update": {
+                "op": "update",
+                "where": {
+                    "event_id": { "_gen": "var", "var": "forkKey" }
+                }
+            },
+            "delete": {
+                "op": "delete",
+                "where": {
+                    "event_id": { "_gen": "var", "var": "forkKey" }
+                }
+            }
+        }
+      },
+
       "localConfigs": {
         "throttle": {
-          "ms": 20000
+          "ms": 1000
         }
       }
     }
   ],
+
   "connections": {
     "pg": {
       "kind": "postgres",
