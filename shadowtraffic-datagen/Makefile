@@ -6,6 +6,9 @@ down:
 run: down
 	docker compose up --force-recreate --build --remove-orphans -d
 
+run_dbz: down
+	docker compose up --force-recreate --build --remove-orphans -d kafka debezium shadowtraffic_pg postgres tabular_connector
+
 restart_tabular_connector:
 	@echo 'Restarting tabular_connector...'
 	docker compose down  --volumes --remove-orphans tabular_connector

@@ -24,6 +24,6 @@
     
     "transforms": "DebeziumTransform",
     "transforms.DebeziumTransform.type": "io.tabular.iceberg.connect.transforms.DebeziumTransform",
-    "transforms.DebeziumTransform.cdc.target.pattern": "kafka_connect_raw.dbz_{table}"
+    "transforms.DebeziumTransform.cdc.target.pattern": "kafka_connect_raw.dbz_{table}_changelog"
   }
 }
