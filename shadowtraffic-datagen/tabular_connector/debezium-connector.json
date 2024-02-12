@@ -18,6 +18,7 @@
     "topic.prefix": "dbz_tabular_postgres",    
     "snapshot.mode": "always",
     "heartbeat.interval.ms": "30000",
-    "heartbeat.action.query": "SELECT pg_logical_emit_message(false, 'heartbeat', now()::varchar);"
+    "heartbeat.action.query": "SELECT pg_logical_emit_message(false, 'heartbeat', now()::varchar);",
+    "time.precision.mode": "connect"
   }
 }
