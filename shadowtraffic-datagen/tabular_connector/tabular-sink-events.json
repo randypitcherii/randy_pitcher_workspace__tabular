@@ -15,11 +15,11 @@
     "iceberg.tables.schema-case-insensitive": "true",
     "iceberg.tables.dynamic-enabled": "true",
 
-    "iceberg.control.commit.interval-ms": "20000",
+    "iceberg.control.commit.interval-ms": "10000",
     "iceberg.tables.default-commit-branch": "main",
 
     "iceberg.catalog.warehouse": "enterprise_data_warehouse",
-    "topics": "events,reactions",
+    "topics": "bets",
     "iceberg.tables.route-field": "target_table"
   }
 }

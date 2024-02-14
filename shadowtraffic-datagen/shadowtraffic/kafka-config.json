@@ -1,105 +1,30 @@
 {
   "generators": [
     {
-      "topic": "reactions",
+      "topic": "bets",
 
-      "key": "kafka_connect.reactions",
       "value": {
-        "target_table": "kafka_connect_raw.reactions",
+        "target_table": "kafka_connect_raw.bets",
         
         "generated_at": {
           "_gen": "now"
         },
 
-        "reaction": {
-          "_gen": "oneOf",
-          "choices": [
-            "👍",
-            "❤️",
-            "🎉",
-            "🙌",
-            "👏",
-            "🔥",
-            "🌈",
-            "🎶",
-            "🥳",
-            "👑",
-            "💯",
-            "💪",
-            "🙏",
-            "🚀",
-            "🌟",
-            "💕",
-            "💥",
-            "🎊",
-            "✨",
-            "🔔",
-            "🍾",
-            "🎁",
-            "🌹",
-            "🎈",
-            "🎯",
-            "🏆",
-            "⚡️",
-            "🌺",
-            "💎",
-            "🎀",
-            "🍫"
-          ]
-        },
-
-        "user_id": {
-          "_gen": "oneOf",
-          "choices": [
+        "bets": {
+          "_gen" : "oneOf",
+          "choices" : [
+            {"bet_id_1": {"bet_name": "Bet One", "amount": 25, "description": "🌞 Randy is betting on LSports!"}}, 
             {
-                "_gen": "string",
-                "expr": "#{Internet.uuid}"
-            },
+              "bet_id_2": {"bet_name": "Bet Two", "amount": 5},
+              "bet_id_3": {"bet_name": "Bet Three", "amount": 500}
+            }, 
+            {},
             {
-                "_gen": "lookup",
-                "topic": "reactions",
-                "path": [
-                  "value", "user_id"
-                ]
+              "bet_id_4": {"bet_name": "Bet Four", "amount": 52},
+              "bet_id_5": {"bet_name": "Bet Five", "amount": 0}
             }
           ]
-        }
-      }
-    },
-    {
-      "topic": "events",
-
-      "key": "kafka_connect.events",
-      "value": {
-        "event_time": {
-          "_gen": "now"
-        },
-
-        "target_table": {
-          "_gen": "oneOf",
-          "choices": [
-            "kafka_connect_raw.signup_events",
-            "kafka_connect_raw.auth_events",
-            "kafka_connect_raw.error_events"
-          ]
-        },
-
-        "user_id": {
-          "_gen": "oneOf",
-          "choices": [
-            {
-                "_gen": "string",
-                "expr": "#{Internet.uuid}"
-            },
-            {
-                "_gen": "lookup",
-                "topic": "reactions",
-                "path": [
-                  "value", "user_id"
-                ]
-            }
-          ]
-        }
+          }
       }
     }
   ],
