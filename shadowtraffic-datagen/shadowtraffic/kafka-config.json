@@ -2,15 +2,12 @@
   "generators": [
     {
       "topic": "reactions",
-
       "key": "kafka_connect.reactions",
       "value": {
-        "target_table": "kafka_connect_raw.reactions",
-        
+        "target_table": "raw.raw_reactions_stream",
         "generated_at": {
           "_gen": "now"
         },
-
         "reaction": {
           "_gen": "oneOf",
           "choices": [
@@ -47,58 +44,1379 @@
             "🍫"
           ]
         },
-
         "user_id": {
           "_gen": "oneOf",
           "choices": [
             {
-                "_gen": "string",
-                "expr": "#{Internet.uuid}"
+              "_gen": "string",
+              "expr": "#{Internet.uuid}"
             },
             {
-                "_gen": "lookup",
-                "topic": "reactions",
-                "path": [
-                  "value", "user_id"
-                ]
+              "_gen": "lookup",
+              "topic": "reactions",
+              "path": [
+                "value",
+                "user_id"
+              ]
             }
           ]
         }
       }
     },
     {
-      "topic": "events",
-
-      "key": "kafka_connect.events",
+      "topic": "simulated_requests",
+      "vars": {
+        "state": {
+          "_gen": "string",
+          "expr": "#{Address.state}"
+        }
+      },
       "value": {
-        "event_time": {
+        "generated_at": {
           "_gen": "now"
         },
-
-        "target_table": {
-          "_gen": "oneOf",
-          "choices": [
-            "kafka_connect_raw.signup_events",
-            "kafka_connect_raw.auth_events",
-            "kafka_connect_raw.error_events"
-          ]
+        "target_table": "raw.raw_requests_stream",
+        "formatted": false,
+        "requestDate": {
+          "_gen": "now"
         },
-
-        "user_id": {
-          "_gen": "oneOf",
-          "choices": [
-            {
-                "_gen": "string",
-                "expr": "#{Internet.uuid}"
+        "jobNumber": {
+          "_gen": "sequentialInteger"
+        },
+        "requestID": {
+          "_gen" : "sequentialInteger"
+        },
+        "policyState": {
+          "_gen": "var",
+          "var": "state"
+        },
+        "policyLOB": "PersonalAutoLine",
+        "policyEffectiveDate": "2023-05-24T00:01:00",
+        "creationDate": "2023-05-24T00:01:00",
+        "branchID": "pc:67198700",
+        "lineID": "pc:103393620",
+        "requestType": "FormProcessing",
+        "FormProcessing": {
+          "policy": {
+            "account": {
+              "accountNumber": "A0039731856",
+              "accountStatus": "Active",
+              "addressLine1": "111 aaa Cir",
+              "city": "unknown",
+              "dateOfBirth": "1900-04-26T00:00:00",
+              "email": "test@test.com",
+              "firstName": "RRR",
+              "lastName": "RRR",
+              "maritalStatus": "M",
+              "phoneNumber": "",
+              "state": {
+                "_gen": "var",
+                "var": "state"
+              },
+              "zipCode": "90000-8904",
+              "cellPhone": ""
             },
-            {
-                "_gen": "lookup",
-                "topic": "reactions",
-                "path": [
-                  "value", "user_id"
-                ]
+            "agency": {
+              "agency": "Your Agent Insurance Center, Inc.",
+              "agencyType": "Independent",
+              "subProducerCode": "BY",
+              "producerCodeOfRecordCode": "04D056"
+            },
+            "additionalDriverDiscovery": [
+              {
+                "addSelection": "Unknown",
+                "addSelectionQB": "Driver Added",
+                "dateOfBirth": "1992-10-12T00:00:00",
+                "driverSourceIndicator": "ADD",
+                "firstName": "SSS",
+                "fixedId": 31866657,
+                "gender": "F",
+                "lastName": "SSS",
+                "licenseState": {
+                  "_gen": "var",
+                  "var": "state"
+                },
+                "addDerivedAge": 31
+              },
+              {
+                "addSelection": "NoLongerInHH",
+                "addSelectionQB": "Not in Household",
+                "driverSourceIndicator": "CC",
+                "firstName": "DDD",
+                "fixedId": 31866658,
+                "lastName": "DDD",
+                "addDerivedAge": 0
+              },
+              {
+                "addSelection": "NoLongerInHH",
+                "addSelectionQB": "Not in Household",
+                "driverSourceIndicator": "CC",
+                "firstName": "FFF",
+                "fixedId": 31866659,
+                "lastName": "FFF",
+                "addDerivedAge": 0
+              }
+            ],
+            "credit": {
+              "createTime": "2023-04-25T13:04:20",
+              "creditAddressMismatch": false,
+              "creditScore": 0,
+              "creditState": "NULL",
+              "fixedID": 77257413,
+              "latePayCount": 0,
+              "nonPayLapseCount": 0,
+              "overrideCreditScore": false,
+              "uwEnteredCreditScore": 0,
+              "uwHardshipOverride": false,
+              "isPermissionToOrderCredit": true,
+              "isOwnHome": false,
+              "isHomeownershipVerified": false,
+              "isNewCreditOrdered": false,
+              "isCreditScoreUsed": false
+            },
+            "drivers": [
+              {
+                "age": 30,
+                "ageFirstLicensed": 17,
+                "dateAdded": "2023-05-24T00:01:00",
+                "dateFirstLicensed": "2009-10-12T01:00:00",
+                "dateOfBirth": "1992-10-12T01:00:00",
+                "drivelessthan3K": false,
+                "driverlessthan50Percent": false,
+                "driverType": "ACTIVE",
+                "educationLevel": "2",
+                "filingType": "none",
+                "firstName": "VVV",
+                "gender": "F",
+                "id": 193455782,
+                "lastName": "VVV",
+                "licenseState": {
+                  "_gen": "var",
+                  "var": "state"
+                },
+                "licenseStatus": "valid",
+                "licenseType": "driver",
+                "licenseTypeQB": "valid",
+                "maritalStatus": "M",
+                "middleName": "J",
+                "mvrDriverInfo": 0,
+                "mvrStatus": "NO",
+                "occupationIndustry": "25",
+                "occupationType": "287",
+                "postalCode": "92882-8904",
+                "relationship": "spouse",
+                "sourceADD": "ADD",
+                "countOfCompOver1kIn3Years": 0,
+                "countOfAfaIn3Years": 0,
+                "countOfLossesIn3Years": 0,
+                "fixedId": 193455782,
+                "driverDrivingLossHistories": [
+                  {
+                    "clueTotalAmountPaid": 0.0,
+                    "drivingLossChargeability": "notCharged",
+                    "drivingLossDCViolationLossPoints": 0,
+                    "drivingLossDriverFirstName": "AAA",
+                    "drivingLossDriverLastName": "ZZZ",
+                    "drivingLossIsDCViolChargeability": false,
+                    "drivingLossIsExcludeFromCount": false,
+                    "drivingLossIsMatched": true,
+                    "drivingLossIsUnassigned": false,
+                    "drivingLossIsViolationAccidentCostValue": false,
+                    "drivingLossSource": "user",
+                    "drivingLossViolationDate": "2021-07-03T01:01:00",
+                    "fixedId": 51216402,
+                    "migClaimTotalAmountPaid": 0.0,
+                    "lossDriverNo": 0,
+                    "clueDriverNo": 0,
+                    "violationType": "5",
+                    "dmpIsViolationChargeability": false,
+                    "violationGroupType": "MICCA_ANAF",
+                    "isCLUELossChargeable": false
+                  }
+                ],
+                "countOfDUI": 0,
+                "countOfCMP": 0,
+                "countOfOtherThanColl1000plus": 0,
+                "countOfMajorViolationIn3year": 0,
+                "countOfPoints": 0,
+                "countOfFelonyin10": 0,
+                "countofFelonyin3": 0,
+                "countOfVehiclesassignedTo": 0,
+                "licenseExpirationDuration": 0,
+                "premiumScoreStatus": "NULL",
+                "ubiNotSamePerson": "NULL",
+                "drivingScore": 0,
+                "ageFirstLincesedInForeign": 0,
+                "backgroundCheck": [],
+                "driverGroupDiscounts": [
+                  {
+                    "driverAssociationGroup": "CostcoSamsClubMember",
+                    "fixedId": 13611130
+                  },
+                  {
+                    "driverAssociationGroup": "AAAMembers",
+                    "fixedId": 13611129
+                  }
+                ],
+                "worksFromHome": false,
+                "countOfPointsVA": 0,
+                "dmpNVFCRAViolations3yrs": 0,
+                "dmpNVFCRAViolations5yrs": 0,
+                "dmpCellPhoneViolationCountThreeYears": 0,
+                "dmpIsEligibleToBeRatedDriver": false,
+                "dmpIsExceptionalDriver": false,
+                "dmpIsGoodDriver": false,
+                "dmpTotalAfaFiveYears": 0,
+                "dmpTotalCountOfPointsThreeYears": 0,
+                "dmpTotalMajorFiveYears": 0,
+                "dmpTotalMinorThreeYears": 0,
+                "isAccidentInLastFiveYears": true,
+                "isApplicableGoodDriverDiscount": false,
+                "isCitedForDrugs": false,
+                "isCriminalOffenceFraudOrFelony": false,
+                "isDateAddedBound": false,
+                "isEnrolledForUBI": false,
+                "isGoodDriver": true,
+                "isGoodDriverForCompany": true,
+                "isDefensiveDriver": false,
+                "isExceptionalDriver": true,
+                "isPermissiveUser": false,
+                "isWidowWhileWithMercury": false,
+                "isGenderOverriden": false,
+                "isExceptionalDriverOverride": false,
+                "isGoodDriverOverride": false,
+                "isDeletedInTransaction": false,
+                "isSameDayVioAndLossWaived": false,
+                "isLicenseNumberChanged": false,
+                "isPreviouslyPinkCard": false,
+                "isInexperiencedOperatorSurcharge": false,
+                "isNotAssignedAsPrincipleOperatorOnAnyVehicle": false,
+                "isTravelMultipleLocationsForJob": false,
+                "isSelfEmployedWithEmployeesDrivingVehiclesOnPolicy": false,
+                "isSR22SR1PFilingNeeded": false,
+                "isGovernmentAffiliation": false,
+                "isMilitaryAffiliation": false,
+                "isRated": true,
+                "isDriverUseVehForTransport": false,
+                "isDriverUsedVehForBUTravel": false,
+                "isSelfEmployedHasDriver": false,
+                "isNewlyAddedInTransaction": true,
+                "isDFLChanged": false,
+                "isDOBOverriden": false,
+                "isGoodStudent": false,
+                "isMatureDriverTraining": false,
+                "isNoAHHM": false,
+                "isPhysicalImpairment": false,
+                "isPNIForQB": false,
+                "isPreFill": false,
+                "isRatedDriver": false,
+                "isRequiresSR22QB": false,
+                "isStolenInLastFiveYears": false,
+                "isSuspRevokedLicense": false,
+                "isDmpPermitDriverNoCharge": false
+              },
+              {
+                "age": 37,
+                "ageFirstLicensed": 16,
+                "dateAdded": "2023-05-24T00:01:00",
+                "dateFirstLicensed": "1900-04-26T00:00:00",
+                "dateOfBirth": "1900-04-26T00:00:00",
+                "drivelessthan3K": false,
+                "driverlessthan50Percent": false,
+                "driverType": "ACTIVE",
+                "educationLevel": "2",
+                "filingType": "none",
+                "firstName": "AAA",
+                "gender": "M",
+                "id": 193455781,
+                "lastName": "AAA",
+                "licenseState": {
+                  "_gen": "var",
+                  "var": "state"
+                },
+                "licenseStatus": "valid",
+                "licenseType": "driver",
+                "licenseTypeQB": "valid",
+                "maritalStatus": "M",
+                "mvrDriverInfo": 0,
+                "mvrStatus": "NO",
+                "occupationIndustry": "25",
+                "occupationType": "287",
+                "postalCode": "92882-8904",
+                "relationship": "insured",
+                "countOfCompOver1kIn3Years": 0,
+                "countOfAfaIn3Years": 0,
+                "countOfLossesIn3Years": 0,
+                "fixedId": 193455781,
+                "countOfDUI": 0,
+                "countOfCMP": 0,
+                "countOfOtherThanColl1000plus": 0,
+                "countOfMajorViolationIn3year": 0,
+                "countOfPoints": 0,
+                "countOfFelonyin10": 0,
+                "countofFelonyin3": 0,
+                "countOfVehiclesassignedTo": 2,
+                "licenseExpirationDuration": 0,
+                "premiumScoreStatus": "NULL",
+                "ubiNotSamePerson": "NULL",
+                "drivingScore": 0,
+                "cellPhone": "",
+                "ageFirstLincesedInForeign": 0,
+                "backgroundCheck": [],
+                "driverGroupDiscounts": [
+                  {
+                    "driverAssociationGroup": "AAAMembers",
+                    "fixedId": 13611127
+                  },
+                  {
+                    "driverAssociationGroup": "CostcoSamsClubMember",
+                    "fixedId": 13611128
+                  }
+                ],
+                "worksFromHome": false,
+                "countOfPointsVA": 0,
+                "dmpNVFCRAViolations3yrs": 0,
+                "dmpNVFCRAViolations5yrs": 0,
+                "dmpCellPhoneViolationCountThreeYears": 0,
+                "dmpIsEligibleToBeRatedDriver": false,
+                "dmpIsExceptionalDriver": false,
+                "dmpIsGoodDriver": false,
+                "dmpTotalAfaFiveYears": 0,
+                "dmpTotalCountOfPointsThreeYears": 0,
+                "dmpTotalMajorFiveYears": 0,
+                "dmpTotalMinorThreeYears": 0,
+                "isAccidentInLastFiveYears": false,
+                "isApplicableGoodDriverDiscount": false,
+                "isCitedForDrugs": false,
+                "isCriminalOffenceFraudOrFelony": false,
+                "isDateAddedBound": false,
+                "isEnrolledForUBI": false,
+                "isGoodDriver": true,
+                "isGoodDriverForCompany": true,
+                "isDefensiveDriver": false,
+                "isExceptionalDriver": true,
+                "isPermissiveUser": false,
+                "isWidowWhileWithMercury": false,
+                "isGenderOverriden": false,
+                "isExceptionalDriverOverride": false,
+                "isGoodDriverOverride": false,
+                "isDeletedInTransaction": false,
+                "isSameDayVioAndLossWaived": false,
+                "isLicenseNumberChanged": false,
+                "isPreviouslyPinkCard": false,
+                "isInexperiencedOperatorSurcharge": false,
+                "isNotAssignedAsPrincipleOperatorOnAnyVehicle": false,
+                "isTravelMultipleLocationsForJob": false,
+                "isSelfEmployedWithEmployeesDrivingVehiclesOnPolicy": false,
+                "isSR22SR1PFilingNeeded": false,
+                "isGovernmentAffiliation": false,
+                "isMilitaryAffiliation": false,
+                "isRated": true,
+                "isDriverUseVehForTransport": false,
+                "isDriverUsedVehForBUTravel": false,
+                "isSelfEmployedHasDriver": false,
+                "isNewlyAddedInTransaction": true,
+                "isDFLChanged": false,
+                "isDOBOverriden": false,
+                "isGoodStudent": false,
+                "isMatureDriverTraining": false,
+                "isNoAHHM": false,
+                "isPhysicalImpairment": false,
+                "isPNIForQB": true,
+                "isPreFill": false,
+                "isRatedDriver": false,
+                "isRequiresSR22QB": false,
+                "isStolenInLastFiveYears": false,
+                "isSuspRevokedLicense": false,
+                "isDmpPermitDriverNoCharge": false
+              }
+            ],
+            "instantID": {
+              "fixedID": 56015817,
+              "cviScore": 0,
+              "nasScore": 0,
+              "napScore": 0,
+              "isMobilePhone": false,
+              "isCommercialMailReceived": false,
+              "isUnverifiedAddress": false,
+              "isUnverifiedPhoneNumber": false,
+              "isVacantAddress": false
+            },
+            "additionalHouseholdMembers": [],
+            "mailingAddress": {
+              "addressLine1": "111 BBB Cir",
+              "city": "Corona",
+              "postalCode": "99999-8904",
+              "state": {
+                "_gen": "var",
+                "var": "state"
+              },
+              "isStandardized": true,
+              "isAddressChange": true,
+              "isPOBox": false
+            },
+            "policyCoverage": {
+              "bodilyInjurypersonalInjuryLiability": {
+                "personAggLimit": 15000.0,
+                "accidentAggLimit": 30000.0,
+                "propertyAggLimit": 10000.0,
+                "combinedAggLimit": 0.0
+              },
+              "uninsuredMotoristBodilyInjury": {
+                "personAggLimit": 15000.0,
+                "accidentAggLimit": 30000.0
+              },
+              "uninsuredMotoristPropertyDamage": {
+                "limit": 0.0,
+                "deductible": 0.0
+              },
+              "underinsuredMotoristBodilyInjury": {
+                "personAggLimit": 0.0,
+                "accidentAggLimit": 0.0
+              },
+              "uninsuredUnderinsuredMotoristBodilyInjury": {
+                "personAggLimit": 0.0,
+                "accidentAggLimit": 0.0
+              },
+              "uninsuredUnderinsuredMotoristPropertyDamage": {
+                "limit": 0.0,
+                "deductible": 0.0
+              },
+              "medicalPayments": {
+                "limit": 0.0
+              },
+              "medicalExpense": {
+                "limit": 0.0
+              },
+              "personalInjuryProtection": {
+                "limit": 0.0,
+                "deductible": 0.0,
+                "extendedMedicalBenefits": 0.0
+              },
+              "mandatoryPersonalInjuryProtection": {
+                "limit": 0.0,
+                "deductible": 0.0,
+                "monthlyWorkLoss": 0.0,
+                "otherExpenses": 0.0,
+                "deathBenefits": 0.0
+              },
+              "additionalPersonalInjuryProtection": {
+                "incomeContinuationWeeklyLimit": 0.0,
+                "incomeContinuationMaxLimit": 0.0,
+                "essentialServicesDailyLimit": 0.0,
+                "essentialServicesMaxLimit": 0.0,
+                "deathBenefit": 0.0,
+                "funeralExpense": 0.0,
+                "isExtensionOfAdditionalPersonalInjuryProtectionToResidenceRelatives": false
+              },
+              "uninsuredMotorist": {
+                "personAggLimit": 0.0,
+                "accidentAggLimit": 0.0
+              },
+              "uninsuredUnderinsuredMotoristUMSUM": {
+                "unInsuredSUMPersonLimit": 0.0,
+                "unInsuredSUMAccidentLimit": 0.0,
+                "isSUMDeclined": false
+              },
+              "optionalBasicEconomicLoss": {
+                "limit": 0.0
+              },
+              "incomeLossBenefits": {
+                "incomeLossBenefitsWeeklyLimit": 0.0,
+                "incomeLossBenefitsMaxWeek": 0
+              },
+              "isWorkLossReductionForPIP": false,
+              "isisUMPDWaived": true
+            },
+            "policyDetails": {
+              "associationGroups": "AAAMembers",
+              "baseState": {
+                "_gen": "var",
+                "var": "state"
+              },
+              "eligibleDriverCount": 2,
+              "eligibleVehicleCount": 2,
+              "lmsNumberOfAccidents": "0",
+              "lmsNumberOfMajorViolation": "0",
+              "lmsNumberOfMinorViolation": "0",
+              "lmsValidLicense": "1",
+              "ooslDriverCount": 0,
+              "originalEffectiveDate": "2023-05-24T00:00:00",
+              "personalAutoLine": 103393620,
+              "premiumDiscountType": "PIF",
+              "previousAddress": 102214266,
+              "priorInsCMPCountAllDrivers": 0,
+              "priorInsCMUCountAllDrivers": 0,
+              "priorInsNAFCountAllDrivers": 0,
+              "rateCappingFactor": 0.0,
+              "rateLevel": 60.0,
+              "ratingTier": 0,
+              "residenceType": "OwnCondominium",
+              "subtype": "Submission",
+              "trendMonths": 0,
+              "urmBlockBindL1": 0.0,
+              "urmBlockBindL2": 0.0,
+              "urmDerivedScore": 15077,
+              "urmThreshold1": 19000,
+              "urmThreshold2": 0,
+              "urmVersionID": "03.10",
+              "uwCompany": "MIC",
+              "vehicleEndorsementCount": 0,
+              "zipValidatedPercentHighest": 0.0,
+              "countOfPipLossesFromCluein3Years": 0,
+              "countOfPipLossesFromCluein5Years": 0,
+              "clueOrderReferenceID": 0,
+              "id": 42525437,
+              "addStatus": "TprADDSuccess",
+              "countofPIPLossesWithPayoutmorethan9k": 0,
+              "countOfPIPClaimsfromCLUEAnyPayout": 0,
+              "countOfUniqueVehicleRatingZips": 1,
+              "countOfZipCodesChanged": 0,
+              "urmIndicator": 0,
+              "numberOfHHResidents": 2,
+              "branchId": 67198700,
+              "rateCappingIndicator": false,
+              "rateCappingInvokeFlag": false,
+              "companyCode": "JJJ",
+              "policyStatus": "Rated",
+              "mdmStatus": "200",
+              "otherMercuryPolicies": [
+                {
+                  "otherMercuryPolicyType": "Condo"
+                }
+              ],
+              "paymentPlanType": "Full Pay",
+              "currentFullTermPremium": 1278.76,
+              "isAutoPay": false,
+              "isBypassWarnings": false,
+              "isEft": false,
+              "isFMktRetier": false,
+              "isFraudValidation": true,
+              "isHasPrimaryHealthinsurer": false,
+              "isHasValidMPD": false,
+              "isHOPolicyVerified": false,
+              "isHOProofDoc": false,
+              "isInsureAllVehicles": true,
+              "isInsuredForPastSixMonths": true,
+              "isMercuryInsuresAllVeh": false,
+              "isMatchIncidentErrorCode508": false,
+              "isPriorServiceOrdered": true,
+              "isMPDAppliedDiffAddress": false,
+              "isSpecialRisk": false,
+              "isClueServiceOrdered": false,
+              "isPermissionToOrderCredit": true,
+              "isPolicyQualifyForReTier": false,
+              "isUpTieredFlag": false,
+              "isURM": false,
+              "isUWBlockBindL1": false,
+              "isUWBlockBindL2": false,
+              "isUWCreditScoreOverride": false,
+              "isUWHardshipOverride": false,
+              "isVerifiedMileage": true,
+              "isVersionFlag": false,
+              "isAdditionalHouseholdMembers": false,
+              "isAggregator": false,
+              "isAnnualPolicy": false,
+              "isADDServiceOrdered": true,
+              "isInstantIDOrdered": false,
+              "isMVRServiceOrdered": false,
+              "isCreditServiceOrdered": true,
+              "isVinPrefillServiceOrdered": true,
+              "isCurrentCarrierOrdered": true,
+              "isInsightServiceOrdered": false,
+              "isUBIServiceOrdered": false,
+              "isOOSLSurcharge": false,
+              "isRenewalConversionFlag": false,
+              "isResidentForSixMonths": true,
+              "isInsuredESignDoc": true,
+              "isManualPremium": false,
+              "isOpenRenewalJobPresent": false,
+              "isUWCompanyOverride": false,
+              "isOverrideGroupDiscount": false,
+              "isBasicPolicyType": false,
+              "isotherMercuryPolicy": true,
+              "isThirdPtyDesignee": false,
+              "isBundle": false,
+              "isConsumerQuoting": false,
+              "isDiscountedQuote": false,
+              "isRateCall2Or3": false,
+              "isDriverAssignmentRequired": false
+            },
+            "policyTerm": {
+              "moduleNumber": 1,
+              "periodEnd": "2023-11-24T00:01:00",
+              "periodStart": "2023-05-24T00:01:00",
+              "productCode": "PersonalAuto",
+              "productVersion": "60.0.0.0",
+              "quoteStartDateWeb": "2023-05-24T00:01:00",
+              "termNumber": 0,
+              "id": 67198700,
+              "termType": "HalfYear",
+              "isProductVersionOverridden": false,
+              "isAdvancedQuote": false
+            },
+            "policyDrivingLossHistory": [
+              {
+                "clueChargeable": false,
+                "clueTotalAmountPaid": 0.0,
+                "unassignedLossIndicator": false,
+                "drivingLossChargeability": "notCharged",
+                "drivingLossIsDCViolChargeability": false,
+                "drivingLossIsExcludeFromCount": false,
+                "drivingLossIsMatched": true,
+                "drivingLossIsViolationAccidentCostValue": false,
+                "drivingLossViolationDate": "2021-07-03T01:01:00",
+                "firstName": "ZZZ",
+                "lastName": "ZZZ",
+                "migClaimAtFaultIndicator": false,
+                "migClaimTotalAmountPaid": 0.0,
+                "source": "user",
+                "totalPoints": 0,
+                "lossDriverNo": 193455782,
+                "clueDriverNo": 0,
+                "fixedID": 51216402
+              }
+            ],
+            "primaryNamedInsured": {
+              "age": 37,
+              "ageFirstLicensed": 17,
+              "creditScoreInfo": 0,
+              "dateFirstLicensed": "1900-04-26T00:00:00",
+              "dateOfBirth": "1900-04-26T00:00:00",
+              "firstName": "AAA",
+              "gender": "M",
+              "id": 193455757,
+              "lastName": "BBB",
+              "maritalStatus": "M",
+              "isWidowWhileWithMercury": false,
+              "isGenderOverriden": false
+            },
+            "priorInsurance": {
+              "currentCarrierStatus": "Received",
+              "currentInsurer": "AutoClubIns",
+              "mercuryQuoteReason": "Other",
+              "priorBILimits": "PAPrInBT100300_250500",
+              "priorPolicyDuration": "5PlusYears",
+              "priorDurationInMonths": 0,
+              "numberOfPriorFlatCancel": 0,
+              "numberOfPriorEarlyCancel": 0,
+              "verifiedAmBestNo": 0,
+              "priorInsuranceRecords": [
+                {
+                  "currentInsurer": "AutoClubIns",
+                  "mercuryQuoteReason": "Other",
+                  "priorBILimits": "PAPrInBT100300_250500",
+                  "priorPolicyDuration": "5PlusYears",
+                  "priorDurationInMonths": 0,
+                  "verifiedAmBestNo": 0,
+                  "source": "ORG",
+                  "isContinuouslyInsured": true
+                },
+                {
+                  "currentInsurer": "AutoClubIns",
+                  "mercuryQuoteReason": "Other",
+                  "priorBILimits": "PAPrInBT100300_250500",
+                  "priorPolicyDuration": "5PlusYears",
+                  "priorDurationInMonths": 0,
+                  "verifiedAmBestNo": 0,
+                  "source": "User",
+                  "currentVPImage": "Agent",
+                  "isContinuouslyInsured": true,
+                  "verifiedNoLapseStartDate": "2023-05-24T00:00:00"
+                },
+                {
+                  "currentInsurer": "MIG",
+                  "lapseDuration": "GreaterThan30",
+                  "mercuryQuoteReason": "Other",
+                  "priorBILimits": "PAPrInBT100300_250500",
+                  "priorPolicyDuration": "5PlusYears",
+                  "reasonForNoPrior": "Other",
+                  "priorDurationInMonths": 130,
+                  "verifiedAmBestNo": 3574,
+                  "tprCarrierName": "MERCURY",
+                  "source": "TPR",
+                  "isContinuouslyInsured": true,
+                  "verifiedNoLapseStartDate": "2023-05-24T00:00:00"
+                }
+              ],
+              "currentCarrierFixedId": 47555684,
+              "isContinuouslyInsured": true
+            },
+            "transaction": {
+              "cancellationStartedBy": 0,
+              "countOfListedDriverAddedInTransaction": 0,
+              "countOfListedDriverDeletedInTransaction": 0,
+              "countOfVehicleAddedInTransaction": 0,
+              "countOfVehicleDeletedInTransaction": 0,
+              "createDate": "2023-04-25T12:57:43",
+              "createUserID": 58906,
+              "defaultAggregator": false,
+              "initiatedBy": "AL",
+              "jobId": 62554349,
+              "lastQuotedBy": 177634,
+              "paTitleTransferredNotNI": false,
+              "policyPeriodId": 67198700,
+              "policySource": "QB",
+              "productVersion": "60.0.0.0",
+              "quoteDate": "2023-04-25T13:04:16",
+              "quoteType": "Quick",
+              "ratingSessionID": "EE137C29:65814D78:B1FB422D:412A5DDB:7A35FE0D:48E90C4C",
+              "renewalVersionNumber": 0,
+              "submitToAgentDate": "2023-04-25T13:41:43",
+              "systemDate": "2023-05-12T16:38:09",
+              "transactionEffectiveDate": "2023-05-24T00:01:00",
+              "transactionType": "Submission",
+              "requestedByApplication": "PolicyCenter",
+              "checkingSet": "PreQuote",
+              "countOfExcludedAHHMDeletedInTransaction": 0,
+              "systemConductingCurrentRateCall": "PolicyCenter",
+              "id": 62554349,
+              "bindOption": "BindAndIssue",
+              "rateRequestID": "CAQ0010103489-7d6a1e11-3aa1-4621-b7f8-8891910ce0df",
+              "lastAccessedBBView": "additionalInfo",
+              "dmpIsQuoteFraud": false,
+              "transactionStatus": "Quoted",
+              "formTriggerPoint": "CrossSellPreview",
+              "userType": "agent",
+              "countOfRateCalls": 4,
+              "source": "Default",
+              "isQuickQuoteReportsOrdered": false,
+              "isAutomaticCoverageApplied": false,
+              "isMRQuickQuoteEdited": false,
+              "isPolicyChangeExtendedRenewal": false,
+              "pcrewriteWorkflowtriggered": true,
+              "isNewRatingZipAdded": false,
+              "isOutOfSequenceEndorsement": false,
+              "isMailingMismatchOutOfSequenceEndorsement": false,
+              "isFirstTimeQuote": false,
+              "isAccountCreate": false,
+              "isEditLocked": false
+            },
+            "vehicles": [
+              {
+                "carFax": [
+                  {
+                    "originalCarfaxMileage": 0,
+                    "isCarfaxFailed": false
+                  }
+                ],
+                "vehicleCoverage": {
+                  "comprehensiveDeductible": 500.0,
+                  "otherThanCollisionDeductible": 0.0,
+                  "collisionDeductible": 500.0,
+                  "isOemEndorsement": false,
+                  "isCollisionDeductibleWaiver": true,
+                  "isUMPDWith250Deductible": false,
+                  "isRental": false,
+                  "isRoadsideAssistance": true,
+                  "isTowingAndLabor": false,
+                  "isLoadLeasePayoff": false,
+                  "isReplacementCost": false,
+                  "isCompOnlyNoOtherCoverages": false,
+                  "isOTCOnlyNoOtherCoverages": false,
+                  "isTransportationExpenseCoverage": false,
+                  "isMechanicalBreakdown": false
+                },
+                "nonFactoryEquipment": [],
+                "vehicleGaragingAddress": {
+                  "addressLine1": "111 AAA Cir",
+                  "city": "Corona",
+                  "county": "Riverside",
+                  "state": {
+                    "_gen": "var",
+                    "var": "state"
+                  },
+                  "zipCode": "90000-8904",
+                  "isValidGarageZip": false,
+                  "isStandardized": true,
+                  "isAddressChange": true,
+                  "isPOBox": false
+                },
+                "annualMileage": 12000,
+                "antiLockBrake": "1",
+                "antiTheft": "0",
+                "antiTheftEquip": "active_device",
+                "auxSymbol": "GP",
+                "biSymbol": "290",
+                "biTerritory": 0,
+                "bodyType": "SED 4DR",
+                "bodyTypeVin": "KMHM34AA-P",
+                "carType": "_7",
+                "changeType": 0,
+                "commutingMiles": 0,
+                "confirmedInQB": true,
+                "costNew": 0.0,
+                "curOdometerRdg": "900",
+                "curOdometerRdngDate": "2023-04-25T00:00:00",
+                "cylinders": "0",
+                "datePurchased": "2023-04-24T13:04:15",
+                "dateVehAdded": "2023-05-24T00:01:00",
+                "daysPerWeek": 0,
+                "fixedId": 90163129,
+                "haveAntiTheftDevice": false,
+                "haveCoRegisteredOwner": false,
+                "id": 90163129,
+                "isVerifiedMileageEligible": "NULL",
+                "leaseOrRent": false,
+                "liabilitySymbol": "01",
+                "make": "HYUNDAI",
+                "makeSymbol": "HY",
+                "mechanicalBreakdownSymbol": "2",
+                "milesDrivenPerYear": 12000,
+                "model": "IONIQ 6 SEL",
+                "modelYear": 2023,
+                "modelSymbol": "NQ",
+                "odometer": 900,
+                "passiveRestraintSystem": "1",
+                "pipSymbol": "485",
+                "publicIdInParkingLot": "pc:90163127",
+                "statedAmount": 0.0,
+                "styleSymbol": "44",
+                "vehicleOwnershipQB": "lease",
+                "vehicleType": "private_passenger",
+                "vehicleUse": "pleasure",
+                "verifiedMileage": 0,
+                "vin": "123456",
+                "vinStatus": "N",
+                "vinSymbol": "19",
+                "tnOperatorFixedId": 0,
+                "additionalInterest": "false",
+                "collSymbol": "XX",
+                "compSymbol": "XX",
+                "annualMileageProgram": "RE_MIG",
+                "instateRatingZip": 0,
+                "calculatedAnnualMileage": 12001,
+                "odoMeterReadings": [
+                  {
+                    "readingDate": "2023-04-25T00:00:00",
+                    "source": "User",
+                    "mileage": 900,
+                    "vehicleID": 90163129,
+                    "fixedID": 2049666,
+                    "isUsedForMileageCalc": false,
+                    "isSystemExcluded": false,
+                    "isExcluded": false,
+                    "isDMPSameDayReading": false,
+                    "isDMPReadingLessThanPriorReading": false,
+                    "isReadingEnteredFromOdometerScreen": false
+                  }
+                ],
+                "isAdditionalInterest": false,
+                "isAnnualMilesInRange": false,
+                "isDaytimeRunningLamps": false,
+                "isDaytimeRunningLampsVIN": false,
+                "isElectricalVehicle": true,
+                "isExistingDamage": false,
+                "isGaragedAtPolicyAddress": true,
+                "isInspectionRequired": false,
+                "isLessthanOneKmiles": false,
+                "isMlgAnnvsry": false,
+                "isNonFactoryEquip": false,
+                "isOverrideAnnMlg": false,
+                "isParkedVehicle": false,
+                "isPhysicalImpEquip": false,
+                "isPurchasedInNinety": true,
+                "isPurchasedNew": true,
+                "isRegisteredToInsured": true,
+                "isReplacementVehicle": false,
+                "isReprtOrdered": false,
+                "isSpecialInspectionRequired": false,
+                "isTransportNetworkPurpose": false,
+                "isModifiedOrExistingDamage": false,
+                "isSalvagedVehicle": false,
+                "isUsedForTNCExternal": false,
+                "isUsedForTNTransport": false,
+                "isUsedForTNTransportFlag": false,
+                "isUsedForTransport": false,
+                "isNewlyAddedUniqueZipCode": true,
+                "isRatingZipCodeChangedTransaction": false,
+                "isComp": true,
+                "isOTC": false,
+                "isCollission": true,
+                "isGap": false,
+                "isCarfaxFailed": false,
+                "isExcessVehicle": false,
+                "isEnrollInRealDrive": false,
+                "isVehicleNewlyAddedInTransaction": true,
+                "isVINLookupHit": true,
+                "isVINUpdated": false,
+                "isFifteenPlus": false,
+                "isZeroGlassDeductible": false
+              },
+              {
+                "carFax": [
+                  {
+                    "carfaxOrderDate": "2023-04-25T13:04:17",
+                    "originalCarfaxMileage": 12812,
+                    "isCarfaxFailed": false
+                  }
+                ],
+                "vehicleCoverage": {
+                  "comprehensiveDeductible": 500.0,
+                  "otherThanCollisionDeductible": 0.0,
+                  "collisionDeductible": 500.0,
+                  "isOemEndorsement": false,
+                  "isCollisionDeductibleWaiver": true,
+                  "isUMPDWith250Deductible": false,
+                  "isRental": false,
+                  "isRoadsideAssistance": true,
+                  "isTowingAndLabor": false,
+                  "isLoadLeasePayoff": false,
+                  "isReplacementCost": false,
+                  "isCompOnlyNoOtherCoverages": false,
+                  "isOTCOnlyNoOtherCoverages": false,
+                  "isTransportationExpenseCoverage": false,
+                  "isMechanicalBreakdown": false
+                },
+                "nonFactoryEquipment": [],
+                "vehicleGaragingAddress": {
+                  "addressLine1": "123 ABC street",
+                  "city": "AAA",
+                  "county": "A",
+                  "state": {
+                    "_gen": "var",
+                    "var": "state"
+                  },
+                  "zipCode": "90000-8904",
+                  "isValidGarageZip": false,
+                  "isStandardized": true,
+                  "isAddressChange": true,
+                  "isPOBox": false
+                },
+                "annualMileage": 12812,
+                "antiLockBrake": "1",
+                "antiTheft": "0",
+                "antiTheftEquip": "active_device",
+                "auxSymbol": "DL",
+                "biSymbol": "290",
+                "biTerritory": 0,
+                "bodyType": "PKP 4X4 4D",
+                "bodyTypeVin": "1C6JJTEG-N",
+                "carType": "UM",
+                "changeType": 0,
+                "commutingMiles": 0,
+                "confirmedInQB": true,
+                "costNew": 0.0,
+                "curOdometerRdg": "13000",
+                "curOdometerRdngDate": "2023-04-25T00:00:00",
+                "cylinders": "6",
+                "datePurchased": "2023-01-24T13:04:15",
+                "dateVehAdded": "2023-05-24T00:01:00",
+                "daysPerWeek": 0,
+                "fixedId": 90163119,
+                "haveAntiTheftDevice": false,
+                "haveCoRegisteredOwner": false,
+                "id": 90163119,
+                "isVerifiedMileageEligible": "NULL",
+                "leaseOrRent": false,
+                "liabilitySymbol": "04",
+                "make": "JEEP",
+                "makeSymbol": "JP",
+                "mechanicalBreakdownSymbol": "3",
+                "milesDrivenPerYear": 12000,
+                "model": "GLADIATOR MOJAVE",
+                "modelYear": 2022,
+                "modelSymbol": "GL",
+                "odometer": 13000,
+                "passiveRestraintSystem": "1",
+                "pipSymbol": "475",
+                "publicIdInParkingLot": "pc:90163118",
+                "statedAmount": 0.0,
+                "styleSymbol": "EK",
+                "vehicleOwnershipQB": "lease",
+                "vehicleType": "private_passenger",
+                "vehicleUse": "pleasure",
+                "verifiedMileage": 12812,
+                "vin": "1c6jjteg4nl138131",
+                "vinStatus": "N",
+                "vinSymbol": "20",
+                "tnOperatorFixedId": 0,
+                "additionalInterest": "false",
+                "collSymbol": "XX",
+                "compSymbol": "XX",
+                "annualMileageProgram": "RD_MIG",
+                "instateRatingZip": 0,
+                "calculatedAnnualMileage": 12812,
+                "odoMeterReadings": [
+                  {
+                    "readingDate": "2023-04-25T00:00:00",
+                    "source": "User",
+                    "mileage": 13000,
+                    "vehicleID": 90163119,
+                    "fixedID": 2049665,
+                    "isUsedForMileageCalc": true,
+                    "isSystemExcluded": false,
+                    "isExcluded": false,
+                    "isDMPSameDayReading": false,
+                    "isDMPReadingLessThanPriorReading": false,
+                    "isReadingEnteredFromOdometerScreen": false
+                  },
+                  {
+                    "readingDate": "2023-02-27T00:00:00",
+                    "source": "Report",
+                    "mileage": 12159,
+                    "vehicleID": 90163119,
+                    "fixedID": 2049668,
+                    "jobNumber": "62554349",
+                    "isUsedForMileageCalc": false,
+                    "isSystemExcluded": false,
+                    "isExcluded": false,
+                    "isDMPSameDayReading": false,
+                    "isDMPReadingLessThanPriorReading": false,
+                    "isReadingEnteredFromOdometerScreen": false
+                  },
+                  {
+                    "readingDate": "2022-10-05T00:00:00",
+                    "source": "Report",
+                    "mileage": 6132,
+                    "vehicleID": 90163119,
+                    "fixedID": 2049669,
+                    "jobNumber": "62554349",
+                    "isUsedForMileageCalc": false,
+                    "isSystemExcluded": false,
+                    "isExcluded": false,
+                    "isDMPSameDayReading": false,
+                    "isDMPReadingLessThanPriorReading": false,
+                    "isReadingEnteredFromOdometerScreen": false
+                  },
+                  {
+                    "readingDate": "2022-04-20T00:00:00",
+                    "source": "Report",
+                    "mileage": 58,
+                    "vehicleID": 90163119,
+                    "fixedID": 2049670,
+                    "jobNumber": "62554349",
+                    "isUsedForMileageCalc": false,
+                    "isSystemExcluded": false,
+                    "isExcluded": false,
+                    "isDMPSameDayReading": false,
+                    "isDMPReadingLessThanPriorReading": false,
+                    "isReadingEnteredFromOdometerScreen": false
+                  },
+                  {
+                    "readingDate": "2022-04-20T00:00:00",
+                    "source": "Report",
+                    "mileage": 12,
+                    "vehicleID": 90163119,
+                    "fixedID": 2049671,
+                    "jobNumber": "62554349",
+                    "isUsedForMileageCalc": true,
+                    "isSystemExcluded": false,
+                    "isExcluded": false,
+                    "isDMPSameDayReading": false,
+                    "isDMPReadingLessThanPriorReading": false,
+                    "isReadingEnteredFromOdometerScreen": false
+                  }
+                ],
+                "isAdditionalInterest": false,
+                "isAnnualMilesInRange": false,
+                "isDaytimeRunningLamps": true,
+                "isDaytimeRunningLampsVIN": true,
+                "isElectricalVehicle": false,
+                "isExistingDamage": false,
+                "isGaragedAtPolicyAddress": true,
+                "isInspectionRequired": false,
+                "isLessthanOneKmiles": false,
+                "isMlgAnnvsry": false,
+                "isNonFactoryEquip": false,
+                "isOverrideAnnMlg": false,
+                "isParkedVehicle": false,
+                "isPhysicalImpEquip": false,
+                "isPurchasedInNinety": false,
+                "isPurchasedNew": true,
+                "isRegisteredToInsured": true,
+                "isReplacementVehicle": false,
+                "isReprtOrdered": true,
+                "isSpecialInspectionRequired": false,
+                "isTransportNetworkPurpose": false,
+                "isModifiedOrExistingDamage": false,
+                "isSalvagedVehicle": false,
+                "isUsedForTNCExternal": false,
+                "isUsedForTNTransport": false,
+                "isUsedForTNTransportFlag": false,
+                "isUsedForTransport": false,
+                "isNewlyAddedUniqueZipCode": true,
+                "isRatingZipCodeChangedTransaction": false,
+                "isComp": true,
+                "isOTC": false,
+                "isCollission": true,
+                "isGap": false,
+                "isCarfaxFailed": false,
+                "isExcessVehicle": false,
+                "isEnrollInRealDrive": false,
+                "isVehicleNewlyAddedInTransaction": true,
+                "isVINLookupHit": true,
+                "isVINUpdated": false,
+                "isFifteenPlus": false,
+                "isZeroGlassDeductible": false
+              }
+            ],
+            "deleteVehicleReason": [],
+            "insight": {
+              "insightScore": 0,
+              "insightScorePNI": 0,
+              "insightScoreSpouse": 0,
+              "quoteInsightScore": 0,
+              "uwEnteredInsightScore": 0,
+              "uwHardshipOverrideInsight": false,
+              "uwInsightScoreOverride": false,
+              "isNewInsightOrdered": false,
+              "isInsightScoreUsed": false,
+              "isInsightOrderedOnPNI": false
+            },
+            "warrantyQuestions": {
+              "isAnyDriverBeenConvictedFelony": false,
+              "isAnyDriverHadStolenVehicleFiveYears": false,
+              "isAnyDriverBeenCitedUseOrPossessionDrugs": false,
+              "isAnyVehicleUsedForTransportNetwork": false,
+              "isAnyVehicleUsedForTransportOfPersonsForHireOrDelivery": false
+            },
+            "previousAddress": {
+              "isStandardized": false,
+              "isAddressChange": false,
+              "isPOBox": false
+            },
+            "priorPolicyOutstandingBalances": [],
+            "approvedUWIssues": [],
+            "currentCarriers": [
+              {
+                "ageOfPolicy": 0,
+                "policyState": {
+                  "_gen": "var",
+                  "var": "state"
+                },
+                "policyStatus": "CANCELLED",
+                "carrier": "MERCURY",
+                "bipdLimits": "100000/300000/50000",
+                "priorExpDate": "2020-03-26T00:00:00",
+                "priorInsuranceHolder": [
+                  {
+                    "name": "JOHN, C",
+                    "relationship": "(LISTED)",
+                    "effectiveDate": "12/09/2019",
+                    "expirationDate": "03/26/2020"
+                  },
+                  {
+                    "name": "JOHN, A",
+                    "relationship": "(LISTED)",
+                    "dateAdded": "06/04/2009",
+                    "effectiveDate": "12/09/2019",
+                    "expirationDate": "03/26/2020"
+                  },
+                  {
+                    "name": "JOHN, B",
+                    "relationship": "(PRIMARY)",
+                    "effectiveDate": "12/09/2019",
+                    "expirationDate": "03/26/2020"
+                  }
+                ],
+                "priorInsuranceVehicle": [
+                  {
+                    "year": 18,
+                    "make": "ROCKWOOD",
+                    "vin": "123123",
+                    "limits": "100000/300000/50000",
+                    "comp": "Yes",
+                    "coll": "Yes"
+                  },
+                  {
+                    "year": 18,
+                    "make": "INFINITI",
+                    "vin": "4564345",
+                    "limits": "100000/300000/50000",
+                    "comp": "Yes",
+                    "coll": "Yes"
+                  },
+                  {
+                    "year": 19,
+                    "make": "HYUNDAI",
+                    "vin": "567890",
+                    "limits": "100000/300000/50000",
+                    "comp": "Yes",
+                    "coll": "Yes"
+                  },
+                  {
+                    "year": 18,
+                    "make": "JEEP",
+                    "vin": "234567",
+                    "limits": "100000/300000/50000",
+                    "comp": "Yes",
+                    "coll": "Yes"
+                  },
+                  {
+                    "year": 13,
+                    "make": "GMC",
+                    "vin": "1234567",
+                    "limits": "100000/300000/50000",
+                    "comp": "Yes",
+                    "coll": "Yes"
+                  }
+                ],
+                "fixedID": 47555684
+              }
+            ],
+            "thirdPtyDesignees": [],
+            "discountsApplied": [
+              {
+                "discountName": "ExceptionalDriverFlag"
+              },
+              {
+                "discountName": "MultiCarDiscountFlag"
+              },
+              {
+                "discountName": "GroupDiscountFlag"
+              },
+              {
+                "discountName": "MultiplePolicyDiscountFlag"
+              },
+              {
+                "discountName": "ExceptionalDriverFlag"
+              },
+              {},
+              {
+                "discountName": "GroupDiscountFlag"
+              },
+              {
+                "discountName": "MultiCarDiscountFlag"
+              },
+              {},
+              {
+                "discountName": "MultiplePolicyDiscountFlag"
+              }
+            ],
+            "uvmInputDetails": {
+              "uvmIndicator": 0,
+              "uvmDerivedScore": 0,
+              "uvmPreviouslyApprovedScore": 0,
+              "uvmThreshold1": 0,
+              "uvmThreshold2": 0
+            },
+            "uvmOutputDetails": {
+              "uvmIndicator": 0
             }
-          ]
+          },
+          "formProcessingInput": {
+            "state": {
+              "_gen": "var",
+              "var": "state"
+            },
+            "rateLevel": 60.0,
+            "transactionType": "Submission",
+            "transactionEffectiveDate": "2023-05-24T00:01:00",
+            "termEffectiveDate": "2023-05-24T00:01:00",
+            "transactionGroup": "New_Business",
+            "uwCompanyCode": "ABC"
+          },
+          "formProcessingOutput": {
+            "applicableForms": [
+              {
+                "formCode": "ABC_DEF",
+                "editionDate": "03/2023",
+                "formNumber": "QL CA",
+                "formPriority": -1,
+                "formType": "Quote",
+                "effectiveDateInteger": 0,
+                "lob": "PersonalAuto",
+                "transactionType": "Submission",
+                "formJurisdiction": {
+                  "_gen": "var",
+                  "var": "state"
+                },
+                "formIssuance": "PerTerm",
+                "productionType": "Dynamic",
+                "archiveSecurityType": "unrestricted",
+                "archiveDocumentType": "quote_app",
+                "effectiveType": "ProductVersion",
+                "emcId": "PAQTE01",
+                "formAction": "A",
+                "formRequestId": "102",
+                "recipientId": "R45",
+                "recipientInfo": [
+                  {
+                    "recipientType": "Insured",
+                    "edeliveryFormDisplayName": "Auto Insurance Quote Summary",
+                    "isFormArchivable": false,
+                    "isFormAlwaysPrint": false,
+                    "isFormActionRequired": false,
+                    "isFormPortalDisplay": false,
+                    "isFormEsignable": false,
+                    "isFormPrintable": false
+                  }
+                ],
+                "masterCode": "QUOTE",
+                "isInferenceConditionsPassed": true,
+                "isIncludeWithApplication": false,
+                "isListOnDeclaration": false,
+                "isListOnFormsScreen": false,
+                "isSignatureRequired": false,
+                "isFCRAApplicable": false
+              },
+              {
+                "formCode": "DMPFI_CSF",
+                "editionDate": "03/2023",
+                "formPriority": -1,
+                "formType": "Quote",
+                "effectiveDateInteger": 0,
+                "lob": "PersonalAuto",
+                "transactionType": "Submission",
+                "formJurisdiction": {
+                  "_gen": "var",
+                  "var": "state"
+                },
+                "formIssuance": "PerTerm",
+                "productionType": "Dynamic",
+                "archiveSecurityType": "unrestricted",
+                "archiveDocumentType": "quote_app",
+                "effectiveType": "ProductVersion",
+                "emcId": "CSELL01",
+                "formAction": "A",
+                "formRequestId": "101",
+                "recipientId": "R66",
+                "recipientInfo": [
+                  {
+                    "recipientType": "Insured",
+                    "edeliveryFormDisplayName": "N/A",
+                    "isFormArchivable": false,
+                    "isFormAlwaysPrint": false,
+                    "isFormActionRequired": false,
+                    "isFormPortalDisplay": false,
+                    "isFormEsignable": false,
+                    "isFormPrintable": false
+                  }
+                ],
+                "displayFormName": "Cross Sell Form",
+                "masterCode": "CSF",
+                "isInferenceConditionsPassed": true,
+                "isIncludeWithApplication": false,
+                "isListOnDeclaration": false,
+                "isListOnFormsScreen": false,
+                "isSignatureRequired": false,
+                "isFCRAApplicable": false
+              }
+            ],
+            "rulesetsToExecute": [
+              {
+                "rulesetName": "Default_Rule",
+                "formCode": "DMPFI_QLCA",
+                "formAction": "A",
+                "formNumber": "QL CA",
+                "removalDate": "2023-05-24T00:01:00",
+                "isInferenceConditionsPassed": true,
+                "isFCRAApplicable": false
+              },
+              {
+                "rulesetName": "Default_Rule",
+                "formCode": "DMPFI_CSF",
+                "formAction": "A",
+                "removalDate": "2023-05-24T00:01:00",
+                "isInferenceConditionsPassed": true,
+                "isFCRAApplicable": false
+              }
+            ],
+            "policyBinCode": "00000000",
+            "binContents": []
+          },
+          "availableForms": []
         }
       }
     }

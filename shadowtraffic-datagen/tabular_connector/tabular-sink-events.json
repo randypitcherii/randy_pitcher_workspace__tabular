@@ -18,8 +18,8 @@
     "iceberg.control.commit.interval-ms": "20000",
     "iceberg.tables.default-commit-branch": "main",
 
-    "iceberg.catalog.warehouse": "enterprise_data_warehouse",
-    "topics": "events,reactions",
+    "iceberg.catalog.warehouse": "evaluation_warehouse",
+    "topics": "simulated_requests,reactions",
     "iceberg.tables.route-field": "target_table"
   }
 }
