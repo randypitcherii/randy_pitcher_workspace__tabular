@@ -72,11 +72,11 @@
         }
       },
       "value": {
-        "generated_at": {
+        "generated_at_number_2": {
           "_gen": "now"
         },
-        "target_table": "raw.raw_requests_stream",
-        "formatted": false,
+        "target_table": "raw.raw_live_requests_stream",
+        "formatted": "hello, world!",
         "requestDate": {
           "_gen": "now"
         },
