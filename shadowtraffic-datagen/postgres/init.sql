@@ -32,3 +32,19 @@ VALUES
 (10, 'Capricorn', 'Earth', '2024-12-22', '2025-01-19', '♑'),
 (11, 'Aquarius', 'Air', '2025-01-20', '2025-02-18', '♒'),
 (12, 'Pisces', 'Water', '2025-02-19', '2025-03-20', '♓');
+
+
+
+CREATE TABLE logins
+( brand_code          character varying(32)                not null ,
+ application_code    character varying(32)                not null ,
+ platform_code       character varying(64)                not null ,
+ hardware_device_id  text                                 not null ,
+ device_id           uuid                                 not null ,
+ created_at          timestamp with time zone             not null ,
+ expires_at          timestamp with time zone             not null ,
+PRIMARY KEY (hardware_device_id, brand_code, application_code, platform_code)
+);
+
+insert into logins select md5(random()::text), md5(random()::text), md5(random()::text), md5(random()::text), gen_random_uuid(), now(), now()+trunc(random()*10)* '1 day'::interval
+FROM generate_series(1,100) id;
