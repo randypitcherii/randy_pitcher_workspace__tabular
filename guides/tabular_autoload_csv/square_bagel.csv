@@ -1,0 +1,11 @@
+ID,Name,Type,Ingredients,Price,Manufacturer,Country
+1,Square Bagel,Whole Wheat,"Wheat Flour, Water, Yeast, Salt",3.5,Bagel Bros,USA
+2,Square Bagel,Sesame,"Wheat Flour, Water, Yeast, Salt, Sesame Seeds",4.0,Bagel Factory,Canada
+3,Square Bagel,Poppy Seed,"Wheat Flour, Water, Yeast, Salt, Poppy Seeds",4.5,Bagel Bites,UK
+4,Square Bagel,Cinnamon Raisin,"Wheat Flour, Water, Yeast, Salt, Cinnamon, Raisins",5.0,Bagel King,Australia
+5,Square Bagel,Blueberry,"Wheat Flour, Water, Yeast, Salt, Blueberries",6.0,Bagel Queen,USA
+6,Square Bagel,Plain,"Wheat Flour, Water, Yeast, Salt",3.0,Bagel Emporium,Canada
+7,Square Bagel,Everything,"Wheat Flour, Water, Yeast, Salt, Garlic, Onion, Sesame Seeds, Poppy Seeds",4.5,Bagel Palace,UK
+8,Square Bagel,Cheese,"Wheat Flour, Water, Yeast, Salt, Cheese",5.0,Bagel Den,New Zealand
+9,Square Bagel,Garlic,"Wheat Flour, Water, Yeast, Salt, Garlic",4.0,Bagel World,USA
+10,Square Bagel,Pumpernickel,"Wheat Flour, Water, Yeast, Salt, Cocoa, Coffee",5.5,Bagel Zone,Germany
