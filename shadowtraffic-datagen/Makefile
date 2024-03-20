@@ -5,12 +5,15 @@ down:
 
 run: down
 	docker compose up --force-recreate --build --remove-orphans -d
+	open http://localhost:9000 
 
 run_dbz: down
-	docker compose up --force-recreate --build --remove-orphans -d kafka debezium shadowtraffic_pg postgres tabular_connector
+	docker compose up --force-recreate --build --remove-orphans -d kafka kafdrop debezium shadowtraffic_pg postgres tabular_connector
+	open http://localhost:9000 
 
 run_kafka: down
-	docker compose up --force-recreate --build --remove-orphans -d kafka shadowtraffic_kafka tabular_connector
+	docker compose up --force-recreate --build --remove-orphans -d kafka kafdrop shadowtraffic_kafka tabular_connector
+	open http://localhost:9000 
 
 restart_tabular_connector:
 	@echo 'Restarting tabular_connector...'
@@ -38,3 +41,10 @@ sample_pg:
 
 sample_kafka:
 	docker run --env-file $$(pwd)/shadowtraffic/license.env -v $$(pwd)/shadowtraffic/kafka-config.json:/home/config.json shadowtraffic/shadowtraffic:latest --config /home/config.json --watch --sample 10 --stdout
+
+kafdrop:
+	@echo 'Restarting kafdrop...'
+	docker compose down --volumes --remove-orphans kafdrop
+	docker compose up --force-recreate --build --remove-orphans -d kafdrop
+	@sleep 10
+	open http://localhost:9000 
