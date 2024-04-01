@@ -18,7 +18,7 @@
     "iceberg.control.commit.interval-ms": "20000",
     "iceberg.tables.default-commit-branch": "main",
 
-    "iceberg.catalog.warehouse": "enterprise_data_warehouse",
+    "iceberg.catalog.warehouse": "evaluation_warehouse",
     "topics.regex": "dbz_tabular_postgres.*",
     "iceberg.tables.route-field": "_cdc.target",
     
