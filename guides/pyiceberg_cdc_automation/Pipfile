@@ -4,11 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-polars = "*"
 jupyterlab = "*"
-numpy = "*"
-pyiceberg = {extras = ["pyarrow"], version = "*"}
-pyarrow = "*"
+pyiceberg = "*"
 
 [dev-packages]
 
