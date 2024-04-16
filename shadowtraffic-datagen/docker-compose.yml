@@ -58,7 +58,7 @@ services:
 
   shadowtraffic_kafka:
     restart: always
-    image: shadowtraffic/shadowtraffic:latest
+    image: shadowtraffic/shadowtraffic:0.3.9
     container_name: shadowtraffic_kafka
     env_file:
       - ./shadowtraffic/license.env
@@ -70,7 +70,7 @@ services:
 
   shadowtraffic_pg:
     restart: always
-    image: shadowtraffic/shadowtraffic:latest
+    image: shadowtraffic/shadowtraffic:0.3.9
     container_name: shadowtraffic_pg
     env_file:
       - ./shadowtraffic/license.env

@@ -5,7 +5,7 @@ USER root
 RUN apt-get update && apt-get install -y unzip wget
 
 # Get the Iceberg Kafka Connect runtime 
-ARG VERSION="0.6.5"
+ARG VERSION="0.6.15"
 RUN wget "https://github.com/tabular-io/iceberg-kafka-connect/releases/download/v${VERSION}/iceberg-kafka-connect-runtime-${VERSION}.zip" \
   && unzip -d /bitnami "iceberg-kafka-connect-runtime-${VERSION}.zip" \
   && rm "iceberg-kafka-connect-runtime-${VERSION}.zip"
