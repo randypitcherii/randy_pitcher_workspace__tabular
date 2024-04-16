@@ -2,27 +2,29 @@
   "generators": [
     {
       "table": "pg_reactions",
-
-      
       "fork": {
-        "key": { "_gen": "uuid" },
-        "stagger": { "ms": 250 }
+        "key": {
+          "_gen": "uuid"
+        },
+        "stagger": {
+          "ms": 250
+        }
       },
-
       "varsOnce": {
         "emailAddress": {
           "_gen": "string",
           "expr": "#{Internet.emailAddress}"
         }
       },
-
       "row": {
-        "event_id": { "_gen": "var", "var": "forkKey" },
-
+        "event_id": {
+          "_gen": "var",
+          "var": "forkKey",
+          "pgHint": "VARCHAR(64) PRIMARY KEY"
+        },
         "generated_at": {
           "_gen": "now"
         },
-
         "reaction": {
           "_gen": "oneOf",
           "choices": [
@@ -59,15 +61,222 @@
             "🍫"
           ]
         },
-
-        "user_email": { "_gen": "var", "var": "emailAddress" },
-
+        "user_email": {
+          "_gen": "var",
+          "var": "emailAddress"
+        },
         "user_ip": {
           "_gen": "string",
           "expr": "#{Internet.ipV4Address}"
+        },
+        "age": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              18,
+              120
+            ]
+          }
+        },
+        "membership": {
+          "_gen": "oneOf",
+          "choices": [
+            "gold",
+            "silver",
+            "bronze"
+          ]
+        },
+        "location": {
+          "_gen": "string",
+          "expr": "#{Address.latitude}, #{Address.longitude}"
+        },
+        "candidate": {
+          "_gen": "weightedOneOf",
+          "choices": [
+            {
+              "weight": 57,
+              "value": "Franklin Roosevelt"
+            },
+            {
+              "weight": 43,
+              "value": "Herbert Hoover"
+            }
+          ]
+        },
+        "product": {
+          "_gen": "string",
+          "expr": "#{Commerce.product_name}"
+        },
+        "creditCard": {
+          "_gen": "string",
+          "expr": "#{Finance.credit_card}"
+        },
+        "generate_at_timestamp": {
+          "_gen": "now"
+        },
+        "film_id": {
+          "_gen": "uuid"
+        },
+        "title": {
+          "_gen": "string",
+          "expr": "#{Lorem.sentence}"
+        },
+        "description": {
+          "_gen": "string",
+          "expr": "#{Lorem.sentence}"
+        },
+        "release_year": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              1900,
+              2023
+            ]
+          }
+        },
+        "language_id": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              1,
+              10
+            ]
+          }
+        },
+        "original_language_id": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              1,
+              10
+            ]
+          }
+        },
+        "rental_duration": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              3,
+              10
+            ]
+          }
+        },
+        "rental_rate": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "normalDistribution",
+            "mean": 10,
+            "sd": 3
+          }
+        },
+        "length": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              60,
+              240
+            ]
+          }
+        },
+        "replacement_cost": {
+          "_gen": "normalDistribution",
+          "mean": 20,
+          "sd": 4
+        },
+        "rating": {
+          "_gen": "oneOf",
+          "choices": [
+            "G",
+            "PG",
+            "PG-13",
+            "R",
+            "NC-17"
+          ]
+        },
+        "last_update": {
+          "_gen": "now"
+        },
+        "special_features": {
+          "_gen": "repeatedly",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              0,
+              5
+            ]
+          },
+          "target": {
+            "_gen": "string",
+            "expr": "#{Lorem.sentence}"
+          }
+        },
+        "fulltext": {
+          "_gen": "string",
+          "expr": "#{Lorem.paragraph}"
+        },
+        "birthday": {
+          "_gen": "string",
+          "expr": "#{Date.birthday '18','80'}"
+        },
+        "directSubscription": {
+          "_gen": "boolean"
+        },
+        "membershipLevel": {
+          "_gen": "oneOf",
+          "choices": [
+            "free",
+            "pro",
+            "elite"
+          ]
+        },
+        "shippingAddress": {
+          "_gen": "string",
+          "expr": "#{Address.fullAddress}"
+        },
+        "activationDate": {
+          "_gen": "formatDateTime",
+          "ms": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              1710176905,
+              {
+                "_gen": "now"
+              }
+            ]
+          }
+        },
+        "username": {
+          "_gen": "string",
+          "expr": "#{Name.username}"
+        },
+        "updatedAt": {
+          "_gen": "now"
+        },
+        "followerCount": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "uniformDistribution",
+            "bounds": [
+              0,
+              2000
+            ]
+          }
+        },
+        "followingCount": {
+          "_gen": "integer",
+          "n": {
+            "_gen": "normalDistribution",
+            "mean": 500,
+            "sd": 200
+          }
         }
       },
-
       "stateMachine": {
         "_gen": "stateMachine",
         "initial": "insert",
@@ -75,38 +284,54 @@
           "insert": {
             "_gen": "weightedOneOf",
             "choices": [
-              { "weight": 4, "value": "update" },
-              { "weight": 1, "value": "delete" }
+              {
+                "weight": 4,
+                "value": "update"
+              },
+              {
+                "weight": 1,
+                "value": "delete"
+              }
             ]
           },
           "update": {
             "_gen": "weightedOneOf",
             "choices": [
-              { "weight": 3, "value": "update" },
-              { "weight": 1, "value": "delete" }
+              {
+                "weight": 3,
+                "value": "update"
+              },
+              {
+                "weight": 1,
+                "value": "delete"
+              }
             ]
           }
         },
-
         "states": {
-            "insert": {
-                "op": "insert"
-            },
-            "update": {
-                "op": "update",
-                "where": {
-                    "event_id": { "_gen": "var", "var": "forkKey" }
-                }
-            },
-            "delete": {
-                "op": "delete",
-                "where": {
-                    "event_id": { "_gen": "var", "var": "forkKey" }
-                }
+          "insert": {
+            "op": "insert"
+          },
+          "update": {
+            "op": "update",
+            "where": {
+              "event_id": {
+                "_gen": "var",
+                "var": "forkKey"
+              }
             }
+          },
+          "delete": {
+            "op": "delete",
+            "where": {
+              "event_id": {
+                "_gen": "var",
+                "var": "forkKey"
+              }
+            }
+          }
         }
       },
-
       "localConfigs": {
         "throttle": {
           "ms": 1000
@@ -114,15 +339,14 @@
       }
     }
   ],
-
   "connections": {
     "pg": {
       "kind": "postgres",
       "connectionConfigs": {
         "host": "postgres",
         "port": 5432,
-        "username" : "postgres",
-        "password" : "postgres",
+        "username": "postgres",
+        "password": "postgres",
         "db": "tabular"
       }
     }

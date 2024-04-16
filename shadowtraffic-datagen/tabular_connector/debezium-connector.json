@@ -7,7 +7,7 @@
     "key.converter": "org.apache.kafka.connect.json.JsonConverter",
     "value.converter": "org.apache.kafka.connect.json.JsonConverter",
     "key.converter.schemas.enable": "false",
-    "value.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false", 
     "publication.autocreate.mode": "all_tables",
     "database.hostname": "postgres",
     "database.port": "5432",
