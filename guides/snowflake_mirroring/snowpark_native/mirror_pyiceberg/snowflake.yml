@@ -1,0 +1,17 @@
+definition_version: 1
+snowpark:
+  project_name: "pyiceberg"
+  stage_name: "internal_stage"
+  src: "app/"
+  procedures:
+    - name: mirror_pyiceberg
+      handler: "procedures.mirror_pyiceberg"
+      signature:
+      returns: string
+      database: revenue_analytics_dev
+      schema: pyiceberg
+      runtime: 3.11
+      external_access_integrations: 
+        - tabular_access_integration
+      secrets:
+        tabular_credential_rpw: tabular_credential_rpw
