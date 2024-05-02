@@ -7,6 +7,7 @@ submit_connector() {
     sleep 5
   done
   curl -X POST -H "Content-Type: application/json" --data @/tabular_connector/tabular-sink-events.json http://localhost:8083/connectors
+  curl -X POST -H "Content-Type: application/json" --data @/tabular_connector/tabular-sink-static-routing.json http://localhost:8083/connectors
   curl -X POST -H "Content-Type: application/json" --data @/tabular_connector/tabular-sink-debezium.json http://localhost:8083/connectors
 
 
