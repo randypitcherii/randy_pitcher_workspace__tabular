@@ -13,14 +13,14 @@
     "iceberg.tables.evolve-schema-enabled": "true",
     "iceberg.tables.schema-force-optional": "true",
     "iceberg.tables.schema-case-insensitive": "true",
-    "iceberg.tables.dynamic-enabled": "true",
+    "iceberg.tables.dynamic-enabled": "false",
 
     "iceberg.control.commit.interval-ms": "20000",
     "iceberg.tables.default-commit-branch": "main",
 
     "iceberg.catalog.warehouse": "enterprise_data_warehouse",
-    "topics": "iot-readings,shadow-cdc-events,memory_usage",
-    "icebeg.tables": "kafka_connect_raw.shadow_iot_readings,kafka_connect_raw.shadow_cdc_events,kafka_connect_raw.shadow_memory_usage",
+    "topics": "iot-readings,memory_usage",
+    "icebeg.tables": "kafka_connect_raw.shadow_iot_readings,kafka_connect_raw.shadow_memory_usage",
 
     "transforms": "KafkaMetadataTransform"
   }
